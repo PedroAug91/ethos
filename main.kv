@@ -1,0 +1,163 @@
+MDScreenManager:
+    
+    MDScreen:
+        name: "initial"
+        md_bg_color: 218/255, 187/255, 159/255, 1
+        MDHeroFrom:
+            id: hero_from
+            tag: "hero"
+            size_hint: None, None
+            size: "200dp", "200dp"
+            pos_hint: {"center_x": .5, "center_y": .66}
+            FitImage:
+                source: "images/logo.png"
+                size_hint: None, None
+                size: hero_from.size
+
+        MDFloatLayout:
+            MDFillRoundFlatButton:
+                text: "SOBRE"
+                font_style: "Button"
+                md_bg_color: 100/255, 37/255, 9/255, 1
+                size_hint: .6, .09
+                pos_hint: {"center_x": .5, "center_y":.28}
+                on_release:
+                    root.current_heroes = ["hero"]
+                    root.current = "about"
+                    root.transition.direction = "left"
+
+            MDFillRoundFlatButton:
+                text: "COMEÇAR AGORA"
+                font_style: "Button"
+                md_bg_color: 100/255, 37/255, 9/255, 1
+                size_hint: .6, .09
+                pos_hint: {"center_x": .5, "center_y":.4}
+                on_release:
+                    app.root.current_heroes = ["hero"]
+                    app.root.current = "login"
+                    app.root.transition.direction = "left"
+
+    MDScreen:
+        name: "about"
+        hero_to: hero_to_about
+        md_bg_color: 218/255, 187/255, 159/255, 1
+        MDHeroTo:
+            id: hero_to_about
+            tag: "hero"
+            size_hint: None, None
+            size: "220dp", "220dp"
+            pos_hint: {"center_x": .5, "center_y": .85}
+
+        MDFloatLayout:
+            Label:
+                text: "SOBRE SOBRE SOBRE SOBRE\nSOBRE SOBRE SOBRE SOBRE\nSOBRE SOBRE SOBRE SOBRE\nSOBRE SOBRE SOBRE SOBRE\n"
+                MDIconButton:
+                    icon: "chevron-left"
+                    icon_size: "43sp"
+                    theme_icon_color: "Custom"
+                    icon_color: 156/255, 93/255, 65/255, 1
+                    pos_hint: {"center_x": .15, "center_y": .09} 
+                    on_release:
+                        app.root.current = "initial"
+                        app.root.transition.direction = "right"
+                        app.root.current_heroes = ["hero"]
+
+    MDScreen:
+        name: "login"
+        hero_to: hero_to_login
+        md_bg_color: 218/255, 187/255, 159/255, 1
+
+        MDHeroTo:
+            id: hero_to_login
+            tag: "hero"
+            size_hint: None, None
+            size: "220dp", "220dp"
+            pos_hint: {"center_x": .5, "center_y": .85}
+        
+        MDFloatLayout:
+            size_hint: 1, 1
+            MDFloatLayout:
+                pos_hint: {"center_x": .5, "center_y": .55}
+                size_hint: .78, 1
+                MDTextField:
+                    id: nome
+                    size_hint: 1, None
+                    height: "30dp"
+                    font_name: "fonts/Poppins-Regular.ttf"
+                    font_size: "24sp"
+                    pos_hint: {"center_x": .5, "center_y": .56}
+                    hint_text: "Nome:"
+                    multiline: False
+                    line_color_normal: "black"
+                    line_color_focus: "maroon"
+                    hint_text_color_normal: "black"
+                    hint_text_color_focus: "maroon"
+                    cursor_width: "2sp"
+
+                MDTextField:
+                    id: email
+                    size_hint: 1, None
+                    height: "30dp"
+                    font_name: "fonts/Poppins-Regular.ttf"
+                    font_size: "24sp"
+                    pos_hint: {"center_x": .5, "center_y": .44}
+                    hint_text: "Email:"
+                    multiline: False
+                    line_color_normal: "black"
+                    line_color_focus: "maroon"
+                    hint_text_color_normal: "black"
+                    hint_text_color_focus: "maroon"
+                    cursor_width: "2sp"
+
+                MDTextField:
+                    id: senha
+                    size_hint: 1, None
+                    height: "30dp"
+                    font_name: "fonts/Poppins-Regular.ttf"
+                    font_size: "20sp"
+                    pos_hint: {"center_x": .5, "center_y": .32}
+                    hint_text: "Senha:"
+                    multiline: False
+                    line_color_normal: "black"
+                    line_color_focus: "maroon"
+                    hint_text_color_normal: "black"
+                    hint_text_color_focus: "maroon"
+                    cursor_width: "2sp"
+                    password: True
+                    icon_left: "key-variant"
+                    icon_color_normal: "gray"
+                    icon_color_focus: "maroon"
+
+#                MDIconButton:
+#                    icon: "eye-off"
+#                    pos_hint: {"center_y": .5}
+#                    pos: senha.width - self.width + dp(8), 0
+#                    theme_text_color: "Hint"
+#
+#                    on_release:
+#                        self.icon = "eye" if self.icon == "eye-off" else "eye-off"
+#                        senha.password = False if senha.password == True else True
+
+
+
+            MDFillRoundFlatButton:
+                text: "SUBMIT"
+                font_style: "Button"
+                md_bg_color: 100/255, 37/255, 9/255, 1
+                size_hint: .6, .09
+                pos_hint: {"center_x": .5, "center_y":.20}
+                on_release:
+                    app.root.current = "initial"
+                    app.root.transition.direction = "right"
+                    app.root.current_heroes = ["hero"]
+
+        MDIconButton:
+            icon: "chevron-left"
+            icon_size: "43sp"
+            theme_icon_color: "Custom"
+            icon_color: 156/255, 93/255, 65/255, 1
+            pos_hint: {"center_x": .10, "center_y": .06} 
+            on_release:
+                app.root.current = "initial"
+                app.root.transition.direction = "right"
+                app.root.current_heroes = ["hero"]
