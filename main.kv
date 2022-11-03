@@ -3,6 +3,7 @@ MDScreenManager:
     MDScreen:
         name: "initial"
         md_bg_color: 189/255, 159/255, 131/255, 1
+
         MDHeroFrom:
             id: hero_from
             tag: "hero"
@@ -18,7 +19,7 @@ MDScreenManager:
             MDFillRoundFlatButton:
                 text: "SOBRE"
                 font_style: "Button"
-                md_bg_color: 100/255, 37/255, 9/255, 1
+                md_bg_color: 66/255, 35/255, 21/255, 1
                 size_hint: .6, .09
                 pos_hint: {"center_x": .5, "center_y":.28}
                 on_release:
@@ -29,7 +30,7 @@ MDScreenManager:
             MDFillRoundFlatButton:
                 text: "COMEÇAR AGORA"
                 font_style: "Button"
-                md_bg_color: 100/255, 37/255, 9/255, 1
+                md_bg_color: 66/255, 35/255, 21/255, 1
                 size_hint: .6, .09
                 pos_hint: {"center_x": .5, "center_y":.4}
                 on_release:
@@ -41,6 +42,7 @@ MDScreenManager:
         name: "about"
         hero_to: hero_to_about
         md_bg_color: 189/255, 159/255, 131/255, 1
+
         MDHeroTo:
             id: hero_to_about
             tag: "hero"
@@ -53,7 +55,6 @@ MDScreenManager:
             MDFloatLayout:
                 pos_hint: {"center_x": .5, "center_y": .5}
                 size_hint: .85, .65 
-                md_bg_color: 1, 1, 1, 1
                 padding: .75, .75, .75, .75
 
                 MDLabel:
@@ -69,16 +70,16 @@ MDScreenManager:
                     theme_text_color: "Custom"
                     text_color: 66/255, 35/255, 21/255, 1
 
-                    MDIconButton:
-                        icon: "chevron-triple-left"
-                        icon_size: "43sp"
-                        theme_icon_color: "Custom"
-                        icon_color: 156/255, 93/255, 65/255, 1
-                        pos_hint: {"center_x": .15, "center_y": .09} 
-                        on_release:
-                            app.root.current = "initial"
-                            app.root.transition.direction = "right"
-                            app.root.current_heroes = ["hero"]
+            MDIconButton:
+                icon: "chevron-triple-left"
+                icon_size: "43sp"
+                theme_icon_color: "Custom"
+                icon_color: 100/255, 37/255, 21/255, 1
+                pos_hint: {"center_x": .099, "center_y": .06} 
+                on_release:
+                    app.root.current = "initial"
+                    app.root.transition.direction = "right"
+                    app.root.current_heroes = ["hero"]
 
     MDScreen:
         name: "login"
@@ -165,22 +166,20 @@ MDScreenManager:
                         self.icon = "eye" if self.icon == "eye-off" else "eye-off"
                         password.password = False if password.password == True else True
 
-
-
             MDFillRoundFlatButton:
                 text: "SUBMIT"
                 font_style: "Button"
-                md_bg_color: 100/255, 37/255, 9/255, 1
+                md_bg_color: 100/255, 37/255, 21/255, 1
                 size_hint: .6, .09
                 pos_hint: {"center_x": .5, "center_y":.20}
 
-        MDIconButton:
-            icon: "chevron-triple-left"
-            icon_size: "43sp"
-            theme_icon_color: "Custom"
-            icon_color: 156/255, 93/255, 65/255, 1
-            pos_hint: {"center_x": .10, "center_y": .06} 
-            on_release:
-                app.root.current = "initial"
-                app.root.transition.direction = "right"
-                app.root.current_heroes = ["hero"]
+            MDIconButton:
+                icon: "chevron-triple-left"
+                icon_size: "43sp"
+                theme_icon_color: "Custom"
+                icon_color: 100/255, 37/255, 21/255, 1
+                pos_hint: {"center_x": .099, "center_y": .06} 
+                on_release:
+                    app.root.current = "initial"
+                    app.root.transition.direction = "right"
+                    app.root.current_heroes = ["hero"]
