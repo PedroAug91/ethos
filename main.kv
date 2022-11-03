@@ -3,6 +3,7 @@ MDScreenManager:
     MDScreen:
         name: "initial"
         md_bg_color: 189/255, 159/255, 131/255, 1
+
         MDHeroFrom:
             id: hero_from
             tag: "hero"
@@ -41,6 +42,7 @@ MDScreenManager:
         name: "about"
         hero_to: hero_to_about
         md_bg_color: 189/255, 159/255, 131/255, 1
+
         MDHeroTo:
             id: hero_to_about
             tag: "hero"
@@ -53,7 +55,6 @@ MDScreenManager:
             MDFloatLayout:
                 pos_hint: {"center_x": .5, "center_y": .5}
                 size_hint: .85, .65 
-                md_bg_color: 1, 1, 1, 1
                 padding: .75, .75, .75, .75
 
                 MDLabel:
@@ -164,8 +165,6 @@ MDScreenManager:
                     on_release:
                         self.icon = "eye" if self.icon == "eye-off" else "eye-off"
                         password.password = False if password.password == True else True
-
-
 
             MDFillRoundFlatButton:
                 text: "SUBMIT"
