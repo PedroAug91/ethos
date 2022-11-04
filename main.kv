@@ -34,6 +34,7 @@ MDScreenManager:
                 size_hint: None, None
                 size: hero_from.size
 
+
         MDFloatLayout:
             FillButtonBase:
                 text: "COMEÇAR AGORA"
@@ -86,7 +87,6 @@ MDScreenManager:
                     theme_text_color: "Custom"
                     text_color: 66/255, 35/255, 21/255, 1
 
-<<<<<<< HEAD
         MDIconButton:
             icon: "chevron-triple-left"
             icon_size: "43sp"
@@ -97,18 +97,6 @@ MDScreenManager:
                 root.current_heroes = ["hero"]
                 root.current = "initial"
                 root.transition.direction = "right"
-=======
-            MDIconButton:
-                icon: "chevron-triple-left"
-                icon_size: "43sp"
-                theme_icon_color: "Custom"
-                icon_color: 100/255, 37/255, 21/255, 1
-                pos_hint: {"center_x": .099, "center_y": .06} 
-                on_release:
-                    app.root.current = "initial"
-                    app.root.transition.direction = "right"
-                    app.root.current_heroes = ["hero"]
->>>>>>> 7f3f0b8 (Fix Chevron-Button placement)
 
     MDScreen:
         name: "login"
@@ -116,7 +104,7 @@ MDScreenManager:
         md_bg_color: "#bd9f83"
 
         MDHeroTo:
-            id: hero_to_login
+            id: hero_to_signup
             tag: "hero"
             size_hint: None, None
             size: "220dp", "220dp"
@@ -181,7 +169,6 @@ MDScreenManager:
                     root.current = "signup"
                     root.transition.direction = "left"
 
-<<<<<<< HEAD
         MDIconButton:
             icon: "chevron-triple-left"
             icon_size: "43sp"
@@ -317,15 +304,3 @@ MDScreenManager:
                             color: "grey"
                             pos: "12dp", "12dp"
                             bold: True
-=======
-            MDIconButton:
-                icon: "chevron-triple-left"
-                icon_size: "43sp"
-                theme_icon_color: "Custom"
-                icon_color: 100/255, 37/255, 21/255, 1
-                pos_hint: {"center_x": .099, "center_y": .06} 
-                on_release:
-                    app.root.current = "initial"
-                    app.root.transition.direction = "right"
-                    app.root.current_heroes = ["hero"]
->>>>>>> 7f3f0b8 (Fix Chevron-Button placement)
