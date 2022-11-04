@@ -83,7 +83,6 @@ MDScreenManager:
                     id: nome
                     size_hint: 1, None
                     height: "30dp"
-                    font_name: "fonts/Poppins-Regular.ttf"
                     font_size: "24sp"
                     pos_hint: {"center_x": .5, "center_y": .56}
                     hint_text: "Nome:"
@@ -98,7 +97,6 @@ MDScreenManager:
                     id: email
                     size_hint: 1, None
                     height: "30dp"
-                    font_name: "fonts/Poppins-Regular.ttf"
                     font_size: "24sp"
                     pos_hint: {"center_x": .5, "center_y": .44}
                     hint_text: "Email:"
@@ -113,7 +111,6 @@ MDScreenManager:
                     id: senha
                     size_hint: 1, None
                     height: "30dp"
-                    font_name: "fonts/Poppins-Regular.ttf"
                     font_size: "20sp"
                     pos_hint: {"center_x": .5, "center_y": .32}
                     hint_text: "Senha:"
@@ -150,6 +147,7 @@ MDScreenManager:
                     app.root.current = "initial"
                     app.root.transition.direction = "right"
                     app.root.current_heroes = ["hero"]
+                    app.patch(nome.text)
 
         MDIconButton:
             icon: "chevron-left"
