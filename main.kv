@@ -143,6 +143,7 @@ MDScreenManager:
                 md_bg_color: 100/255, 37/255, 9/255, 1
                 size_hint: .6, .09
                 pos_hint: {"center_x": .5, "center_y":.20}
+<<<<<<< Updated upstream
                 on_release:
                     app.root.current = "initial"
                     app.root.transition.direction = "right"
@@ -159,3 +160,17 @@ MDScreenManager:
                 app.root.current = "initial"
                 app.root.transition.direction = "right"
                 app.root.current_heroes = ["hero"]
+=======
+                on_release: app.patch(name.text) 
+
+            MDIconButton:
+                icon: "chevron-triple-left"
+                icon_size: "43sp"
+                theme_icon_color: "Custom"
+                icon_color: 100/255, 37/255, 21/255, 1
+                pos_hint: {"center_x": .099, "center_y": .06} 
+                on_release:
+                    app.root.current = "initial"
+                    app.root.transition.direction = "right"
+                    app.root.current_heroes = ["hero"]
+>>>>>>> Stashed changes
