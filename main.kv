@@ -107,9 +107,43 @@ MDScreenManager:
             tag: "hero"
             size_hint: None, None
             size: "220dp", "220dp"
-            pos_hint: {"center_x": .5, "center_y": .75}
+            pos_hint: {"center_x": .5, "center_y": .85}
 
         MDFloatLayout:
+            size_hint: 1, 1
+            MDFloatLayout:
+                pos_hint: {"center_x": .5, "center_y": .55}
+                size_hint: .78, 1
+                
+                TextFieldBase:
+                    id: email_login
+                    pos_hint: {"center_x": .5, "center_y": .56}
+                    icon_left: "email"
+                    hint_text: "Email:"
+
+                TextFieldBase:
+                    id: password_login
+                    pos_hint: {"center_x": .5, "center_y": .44}
+                    hint_text: "Senha:"
+                    icon_left: "key-variant"
+                    password: True
+
+                MDIconButton:
+                    icon: "eye-off"
+                    pos_hint: {"center_x": 0.95, "center_y": .44}
+                    pos: password_login.width - self.width + dp(8), 0
+                    theme_text_color: "Hint"
+
+                    on_release:
+                        self.icon = "eye" if self.icon == "eye-off" else "eye-off"
+                        password_login.password = False if password_login.password == True else True
+
+                MDTextButton:
+                    id: redefine_password
+                    text: "Redefinir senha"
+                    custom_color: "white"
+                    pos_hint: {"center_x": .8, "center_y": .33}
+
             FillButtonBase:
                 text: "Entrar"
                 size_hint: .55, .07
@@ -147,19 +181,19 @@ MDScreenManager:
                 size_hint: .78, 1
 
                 TextFieldBase:
-                    id: name
+                    id: name_signup
                     pos_hint: {"center_x": .5, "center_y": .56}
+                    icon_left: "account"
                     hint_text: "Nome:"
-                    icon_left: "gmail"
 
                 TextFieldBase:
-                    id: email
+                    id: email_signup
                     pos_hint: {"center_x": .5, "center_y": .44}
                     hint_text: "Email:"
-                    icon_left: "account"
+                    icon_left: "email"
 
                 TextFieldBase:
-                    id: password
+                    id: password_signup
                     pos_hint: {"center_x": .5, "center_y": .32}
                     hint_text: "Senha:"
                     icon_left: "key-variant"
@@ -168,7 +202,7 @@ MDScreenManager:
                 MDIconButton:
                     icon: "eye-off"
                     pos_hint: {"center_x": 0.95, "center_y": .32}
-                    pos: password.width - self.width + dp(8), 0
+                    pos: password_signup.width - self.width + dp(8), 0
                     theme_text_color: "Hint"
 
                     on_release:
