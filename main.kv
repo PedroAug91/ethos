@@ -15,13 +15,13 @@
 
 <FillButtonBase@MDFillRoundFlatButton>:
     font_style: "Button"
-    md_bg_color: 66/255, 35/255, 21/255, 1
+    md_bg_color: "#422315"
 
 MDScreenManager:
     
     MDScreen:
         name: "initial"
-        md_bg_color: 189/255, 159/255, 131/255, 1
+        md_bg_color: "#bd9f83"
 
         MDHeroFrom:
             id: hero_from
@@ -34,7 +34,6 @@ MDScreenManager:
                 size_hint: None, None
                 size: hero_from.size
 
-
         MDFloatLayout:
             FillButtonBase:
                 text: "COMEÇAR AGORA"
@@ -42,9 +41,8 @@ MDScreenManager:
                 size_hint: .6, .09
                 on_release:
                     root.current_heroes = ["hero"]
-                    root.current = "signup"
+                    root.current = "login"
                     root.transition.direction = "left"
-
 
             FillButtonBase:
                 text:"SOBRE"
@@ -58,7 +56,7 @@ MDScreenManager:
     MDScreen:
         name: "about"
         hero_to: hero_to_about
-        md_bg_color: 189/255, 159/255, 131/255, 1
+        md_bg_color: "#bd9f83"
 
         MDHeroTo:
             id: hero_to_about
@@ -88,28 +86,92 @@ MDScreenManager:
                     theme_text_color: "Custom"
                     text_color: 66/255, 35/255, 21/255, 1
 
-            MDIconButton:
-                icon: "chevron-triple-left"
-                icon_size: "43sp"
-                theme_icon_color: "Custom"
-                icon_color: 100/255, 37/255, 21/255, 1
-                pos_hint: {"center_x": .099, "center_y": .06} 
-                on_release:
-                    app.root.current = "initial"
-                    app.root.transition.direction = "right"
-                    app.root.current_heroes = ["hero"]
+        MDIconButton:
+            icon: "chevron-triple-left"
+            icon_size: "43sp"
+            theme_icon_color: "Custom"
+            icon_color: "#422315"
+            pos_hint: {"center_x": .099, "center_y": .06} 
+            on_release:
+                root.current_heroes = ["hero"]
+                root.current = "initial"
+                root.transition.direction = "right"
 
     MDScreen:
-        name: "signup"
-        hero_to: hero_to_signup
-        md_bg_color: 189/255, 159/255, 131/255, 1
+        name: "login"
+        hero_to: hero_to_login
+        md_bg_color: "#bd9f83"
 
         MDHeroTo:
-            id: hero_to_signup
+            id: hero_to_login
             tag: "hero"
             size_hint: None, None
             size: "220dp", "220dp"
             pos_hint: {"center_x": .5, "center_y": .85}
+
+        MDFloatLayout:
+            size_hint: 1, 1
+            MDFloatLayout:
+                pos_hint: {"center_x": .5, "center_y": .55}
+                size_hint: .78, 1
+                
+                TextFieldBase:
+                    id: email_login
+                    pos_hint: {"center_x": .5, "center_y": .56}
+                    icon_left: "email"
+                    hint_text: "Email:"
+
+                TextFieldBase:
+                    id: password_login
+                    pos_hint: {"center_x": .5, "center_y": .44}
+                    hint_text: "Senha:"
+                    icon_left: "key-variant"
+                    password: True
+
+                MDIconButton:
+                    icon: "eye-off"
+                    pos_hint: {"center_x": 0.95, "center_y": .44}
+                    pos: password_login.width - self.width + dp(8), 0
+                    theme_text_color: "Hint"
+
+                    on_release:
+                        self.icon = "eye" if self.icon == "eye-off" else "eye-off"
+                        password_login.password = False if password_login.password == True else True
+
+                MDTextButton:
+                    id: redefine_password
+                    text: "Redefinir senha"
+                    custom_color: "white"
+                    pos_hint: {"center_x": .8, "center_y": .33}
+
+            FillButtonBase:
+                text: "Entrar"
+                size_hint: .55, .07
+                pos_hint: {"center_x": .5, "center_y": .25}
+
+            FillButtonBase:
+                text: "Cadastrar-se"
+                size_hint: .55, .07
+                pos_hint: {"center_x": .5, "center_y": .15}
+                on_release:
+                    root.current_heroes = []
+                    root.current = "signup"
+                    root.transition.direction = "left"
+
+        MDIconButton:
+            icon: "chevron-triple-left"
+            icon_size: "43sp"
+            theme_icon_color: "Custom"
+            icon_color: "#422315"
+            pos_hint: {"center_x": .099, "center_y": .06} 
+            on_release:
+                root.current_heroes = ["hero"]
+                root.current = "initial"
+                root.transition.direction = "right"
+
+    MDScreen:
+        name: "signup"
+        md_bg_color: "#bd9f83"
         
         MDFloatLayout:
             size_hint: 1, 1
@@ -119,19 +181,19 @@ MDScreenManager:
                 size_hint: .78, 1
 
                 TextFieldBase:
-                    id: name
+                    id: name_signup
                     pos_hint: {"center_x": .5, "center_y": .56}
+                    icon_left: "account"
                     hint_text: "Nome:"
-                    icon_left: "gmail"
 
                 TextFieldBase:
-                    id: email
+                    id: email_signup
                     pos_hint: {"center_x": .5, "center_y": .44}
                     hint_text: "Email:"
-                    icon_left: "account"
+                    icon_left: "email"
 
                 TextFieldBase:
-                    id: password
+                    id: password_signup
                     pos_hint: {"center_x": .5, "center_y": .32}
                     hint_text: "Senha:"
                     icon_left: "key-variant"
@@ -140,7 +202,7 @@ MDScreenManager:
                 MDIconButton:
                     icon: "eye-off"
                     pos_hint: {"center_x": 0.95, "center_y": .32}
-                    pos: password.width - self.width + dp(8), 0
+                    pos: password_signup.width - self.width + dp(8), 0
                     theme_text_color: "Hint"
 
                     on_release:
@@ -148,23 +210,17 @@ MDScreenManager:
                         password.password = False if password.password == True else True
 
             FillButtonBase:
-                text: "CADASTRAR"
+                text: "Cadastrar"
                 size_hint: .6, .09
                 pos_hint: {"center_x": .5, "center_y": .2}
-#           MDFillRoundFlatButton:
-#               text: "SUBMIT"
-#               font_style: "Button"
-#               md_bg_color: 66/255, 35/255, 21/255, 1
-#               size_hint: .6, .09
-#               pos_hint: {"center_x": .5, "center_y":.20}
 
-            MDIconButton:
-                icon: "chevron-triple-left"
-                icon_size: "43sp"
-                theme_icon_color: "Custom"
-                icon_color: 100/255, 37/255, 21/255, 1
-                pos_hint: {"center_x": .099, "center_y": .06} 
-                on_release:
-                    app.root.current = "initial"
-                    app.root.transition.direction = "right"
-                    app.root.current_heroes = ["hero"]
+        MDIconButton:
+            icon: "chevron-triple-left"
+            icon_size: "43sp"
+            theme_icon_color: "Custom"
+            icon_color: "#422315"
+            pos_hint: {"center_x": .099, "center_y": .06} 
+            on_release:
+                root.current = "login"
+                root.transition.direction = "right"
+
