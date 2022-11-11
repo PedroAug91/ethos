@@ -228,3 +228,65 @@ MDScreenManager:
             on_release:
                 root.current = "login"
                 root.transition.direction = "right"
+    MDScreen:
+        name: "timeline"
+        md_bg_color: "#bd9f83"
+        MDScrollView:
+            do_scroll_x: False
+            do_scroll_y: True
+            size_hint: 1, 1
+
+            MDBoxLayout:
+                orientation: "vertical"
+                size_hint_y: None
+                height: dp(1000)
+                spacing: 10
+
+                MDCard:
+                    padding: 4
+                    size_hint: .9, .5
+                    pos_hint: {"center_x": .5, "center_y": .9}
+                    MDRelativeLayout:
+                        MDIconButton:
+                            icon: "dots-vertical"
+                            pos_hint: {"top": 1, "right": 1}
+
+                        MDLabel:
+                            id: label
+                            text: "THIS IS CARD"
+                            adaptive_size: True
+                            color: "grey"
+                            pos: "12dp", "12dp"
+                            bold: True
+                MDCard:
+                    padding: 4
+                    size_hint: .9, .5
+                    pos_hint: {"center_x": .5, "center_y": .9}
+                    MDRelativeLayout:
+                        MDIconButton:
+                            icon: "dots-vertical"
+                            pos_hint: {"top": 1, "right": 1}
+
+                        MDLabel:
+                            id: label
+                            text: "THIS IS CARD"
+                            adaptive_size: True
+                            color: "grey"
+                            pos: "12dp", "12dp"
+                            bold: True
+                MDCard:
+                    padding: 4
+                    size_hint: .9, .5
+                    pos_hint: {"center_x": .5, "center_y": .9}
+                    MDRelativeLayout:
+                        MDIconButton:
+                            icon: "dots-vertical"
+                            pos_hint: {"top": 1, "right": 1}
+
+                        MDLabel:
+                            id: label
+                            text: "THIS IS CARD"
+                            adaptive_size: True
+                            color: "grey"
+                            pos: "12dp", "12dp"
+                            bold: True
