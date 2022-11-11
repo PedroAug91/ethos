@@ -7,6 +7,7 @@ import requests
 class Apps(MDApp):
 
     def send_data(self, name, email, password):
+        from firebase import firebase
         firebase = firebase.FirebaseApplication('https://testando-ae5b2-default-rtdb.firebaseio.com/', None)
 
         data = {
@@ -18,13 +19,14 @@ class Apps(MDApp):
         firebase.post('https://testando-ae5b2-default-rtdb.firebaseio.com/Users', data)
     
     def verify_data(self, email, password):
+        from firebase import firebase
         firebase = firebase.FirebaseApplication('https://testando-ae5b2-default-rtdb.firebaseio.com/', None)
         result = firebase.get('https://testando-ae5b2-default-rtdb.firebaseio.com/Users', '')
 
         for i in result.keys():
             if result[i]['Email'] == email:
                 if result[i]['Password'] == password:
-                    pass
+                    print('entrou')
 
 
     def build(self):
