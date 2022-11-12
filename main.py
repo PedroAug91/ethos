@@ -10,13 +10,16 @@ class Apps(MDApp):
         from firebase import firebase
         firebase = firebase.FirebaseApplication('https://testando-ae5b2-default-rtdb.firebaseio.com/', None)
 
-        data = {
-            'Name': name,
-            'Email': email,
-            'Password': password
-        }
-
-        firebase.post('https://testando-ae5b2-default-rtdb.firebaseio.com/Users', data)
+        if '@' in email and '.com' in email or '.br' in email:
+            data = {
+                'Name': name,
+                'Email': email,
+                'Password': password
+            }
+            firebase.post('https://testando-ae5b2-default-rtdb.firebaseio.com/Users', data)
+            return 'emailcorreto'
+        else:
+            return 'emailinva'
 
     def verify_data(self, email, password):
         from firebase import firebase
