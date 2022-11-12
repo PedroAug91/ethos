@@ -144,13 +144,21 @@ MDScreenManager:
                     custom_color: "white"
                     pos_hint: {"center_x": .8, "center_y": .33}
 
+            MDLabel: 
+                id: uiui
+                text: " "
+                bold: True
+                pos_hint: {"center_x": .71, "center_y": .69}
+
             FillButtonBase:
                 text: "Entrar"
                 size_hint: .55, .07
                 pos_hint: {"center_x": .5, "center_y": .25}
                 on_release:
-                    app.verify_data(email_login.text, password_login.text)
-
+                    if app.verify_data(email_login.text, password_login.text) == 'tudocerto': root.current = "timeline"
+                    elif app.verify_data(email_login.text, password_login.text) == 'tudoerrado': uiui.text = "Login incorreto, tente novamente"
+                    elif app.verify_data(email_login.text, password_login.text) == 'emailerrado': uiui.text = "Email errado, tente novamente"
+                    elif app.verify_data(email_login.text, password_login.text) == 'senhaerrada': uiui.text = "Senha errada, tente novamente"
             FillButtonBase:
                 text: "Cadastrar-se"
                 size_hint: .55, .07
