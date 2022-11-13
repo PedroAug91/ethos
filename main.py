@@ -2,8 +2,7 @@ from kivymd.app import MDApp
 from kivy.lang import Builder
 from firebase import firebase
 from kivy.core.window import Window
-import json
-import requests
+
 
 class Apps(MDApp):
     def send_data(self, name, email, password):
