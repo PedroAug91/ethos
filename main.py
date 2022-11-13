@@ -31,6 +31,7 @@ class Apps(MDApp):
                 if result[i]['Password'] == password:
                     return 'tudocerto'
 
+
     def build(self):
         Window.size = (400, 600)
 
