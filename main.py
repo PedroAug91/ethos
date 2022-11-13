@@ -31,14 +31,6 @@ class Apps(MDApp):
             if result[i]['Email'] == email:
                 if result[i]['Password'] == password:
                     return 'tudocerto'
-            elif result[i]['Email'] != email and result[i]['Password'] != password:
-                return 'tudoerrado'
-            if result[i]['Email'] != email:
-                return 'emailerrado'
-            if result[i]['Password'] != password:
-                return 'senhaerrada'
-            
-
 
     def build(self):
         Window.size = (400, 600)
