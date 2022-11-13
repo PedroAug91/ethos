@@ -31,6 +31,18 @@ class Apps(MDApp):
                 if result[i]['Password'] == password:
                     return 'tudocerto'
 
+    def rst_pswrd(self, email, password):
+        from firebase import firebase
+
+        firebase = firebase.FirebaseApplication('https://testando-ae5b2-default-rtdb.firebaseio.com/', None)
+        result = firebase.get('https://testando-ae5b2-default-rtdb.firebaseio.com/Users', '')
+
+        for i in result.keys():
+            dados = {'Password': password}
+            if result[i]['Email'] == email and result[i]['Password'] != password:
+                firebase.patch(f'https://testando-ae5b2-default-rtdb.firebaseio.com/Users/{i}', dados)
+                return 'troca'
+
 
     def build(self):
         Window.size = (400, 600)

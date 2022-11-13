@@ -144,6 +144,9 @@ MDScreenManager:
                     text: "Redefinir senha"
                     custom_color: "white"
                     pos_hint: {"center_x": .8, "center_y": .33}
+                    on_release:
+                        root.current = "recpaswrd"
+                        root.transition.direction = "left"
 
             MDLabel: 
                 id: lbl
@@ -158,6 +161,7 @@ MDScreenManager:
                 on_release:
                     if app.verify_data(email_login.text, password_login.text) == 'tudocerto': root.current = "timeline";root.transition.direction = "left"
                     else: lbl.text = "Login incorreto, tente novamente"
+
             FillButtonBase:
                 text: "Cadastrar-se"
                 size_hint: .55, .07
@@ -231,7 +235,65 @@ MDScreenManager:
                 on_release:
                     if app.send_data(name_signup.text, email_signup.text, password_signup.text) == "emailcorreto": root.current = "login"
                     elif app.send_data(name_signup.text, email_signup.text, password_signup.text) == "emailinva": lbc.text = "Cadastre o email corretamente"
+                    
+        MDIconButton:
+            icon: "chevron-triple-left"
+            icon_size: "43sp"
+            theme_icon_color: "Custom"
+            icon_color: "#422315"
+            pos_hint: {"center_x": .099, "center_y": .06} 
+            on_release:
+                root.current = "login"
+                root.transition.direction = "right"
 
+    MDScreen:
+        name: "recpaswrd"
+        md_bg_color: "#bd9f83"
+        
+        MDFloatLayout:
+            size_hint: 1, 1
+
+            MDFloatLayout:
+                pos_hint: {"center_x": .5, "center_y": .55}
+                size_hint: .78, 1
+
+
+                TextFieldBase:
+                    id: email_rec
+                    pos_hint: {"center_x": .5, "center_y": .56}
+                    icon_left: "email"
+                    hint_text: "Email:"
+
+                TextFieldBase:
+                    id: password_rec
+                    pos_hint: {"center_x": .5, "center_y": .44}
+                    hint_text: "Senha:"
+                    icon_left: "key-variant"
+                    password: True
+
+                MDIconButton:
+                    icon: "eye-off"
+                    pos_hint: {"center_x": 0.95, "center_y": .44}
+                    pos: password_rec.width - self.width + dp(8), 0
+                    theme_text_color: "Hint"
+
+                    on_release:
+                        self.icon = "eye" if self.icon == "eye-off" else "eye-off"
+                        password_rec.password = False if password_rec.password == True else True
+                        
+            MDLabel: 
+                id: lbrec
+                text: " "
+                bold: True
+                pos_hint: {"center_x": .61, "center_y": .69}
+
+            FillButtonBase:
+                text: "Recuperar"
+                size_hint: .6, .09
+                pos_hint: {"center_x": .5, "center_y": .2}
+                on_release:
+                    if app.rst_pswrd(email_rec.text, password_rec.text) == 'troca': lbrec.text = "Senha recuperada com sucesso"
+                    else: lbrec.text = 'Email não cadastrado ou senha já cadastrada'
                     
         MDIconButton:
             icon: "chevron-triple-left"
