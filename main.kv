@@ -145,13 +145,22 @@ MDScreenManager:
                     custom_color: "white"
                     pos_hint: {"center_x": .8, "center_y": .33}
 
+            MDLabel: 
+                id: lbl
+                text: " "
+                bold: True
+                pos_hint: {"center_x": .71, "center_y": .69}
+
             FillButtonBase:
                 text: "Entrar"
                 size_hint: .55, .07
                 pos_hint: {"center_x": .5, "center_y": .25}
                 on_release:
-                    root.current = "timeline"
-################# REMOVER A LINHA ACIMA
+
+                    if app.verify_data(email_login.text, password_login.text) == 'tudocerto': root.current = "timeline";root.transition.direction = "left"
+                    elif app.verify_data(email_login.text, password_login.text) == 'tudoerrado': lbl.text = "Login incorreto, tente novamente"
+                    elif app.verify_data(email_login.text, password_login.text) == 'emailerrado': lbl.text = "Email errado, tente novamente"
+                    elif app.verify_data(email_login.text, password_login.text) == 'senhaerrada': lbl.text = "Senha errada, tente novamente"
 
             FillButtonBase:
                 text: "Cadastrar-se"
@@ -212,12 +221,22 @@ MDScreenManager:
                     on_release:
                         self.icon = "eye" if self.icon == "eye-off" else "eye-off"
                         password_signup.password = False if password_signup.password == True else True
+                        
+            MDLabel: 
+                id: lbc
+                text: " "
+                bold: True
+                pos_hint: {"center_x": .71, "center_y": .69}
 
             FillButtonBase:
                 text: "Cadastrar"
                 size_hint: .6, .09
                 pos_hint: {"center_x": .5, "center_y": .2}
+                on_release:
+                    if app.send_data(name_signup.text, email_signup.text, password_signup.text) == "emailcorreto": root.current = "login"
+                    elif app.send_data(name_signup.text, email_signup.text, password_signup.text) == "emailinva": lbc.text = "Cadastre o email corretamente"
 
+                    
         MDIconButton:
             icon: "chevron-triple-left"
             icon_size: "43sp"
