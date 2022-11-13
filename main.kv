@@ -18,6 +18,7 @@
     md_bg_color: "#422315"
 
 MDScreenManager:
+
     
     MDScreen:
         name: "initial"
@@ -155,16 +156,12 @@ MDScreenManager:
                 size_hint: .55, .07
                 pos_hint: {"center_x": .5, "center_y": .25}
                 on_release:
-<<<<<<< HEAD
+
                     if app.verify_data(email_login.text, password_login.text) == 'tudocerto': root.current = "timeline";root.transition.direction = "left"
                     elif app.verify_data(email_login.text, password_login.text) == 'tudoerrado': lbl.text = "Login incorreto, tente novamente"
                     elif app.verify_data(email_login.text, password_login.text) == 'emailerrado': lbl.text = "Email errado, tente novamente"
                     elif app.verify_data(email_login.text, password_login.text) == 'senhaerrada': lbl.text = "Senha errada, tente novamente"
-=======
-                    root.current = "timeline"
-################# REMOVER A LINHA ACIMA
 
->>>>>>> 3d84174 (Create timeline screen and add first card iteration)
             FillButtonBase:
                 text: "Cadastrar-se"
                 size_hint: .55, .07
@@ -224,11 +221,13 @@ MDScreenManager:
                     on_release:
                         self.icon = "eye" if self.icon == "eye-off" else "eye-off"
                         password_signup.password = False if password_signup.password == True else True
+                        
             MDLabel: 
                 id: lbc
                 text: " "
                 bold: True
                 pos_hint: {"center_x": .71, "center_y": .69}
+
             FillButtonBase:
                 text: "Cadastrar"
                 size_hint: .6, .09
@@ -247,65 +246,90 @@ MDScreenManager:
             on_release:
                 root.current = "login"
                 root.transition.direction = "right"
+
     MDScreen:
         name: "timeline"
         md_bg_color: "#bd9f83"
-        MDScrollView:
-            do_scroll_x: False
-            do_scroll_y: True
-            size_hint: 1, 1
 
-            MDBoxLayout:
-                orientation: "vertical"
-                size_hint_y: None
-                height: dp(1000)
-                spacing: 10
+        MDNavigationLayout:
+            MDScreenManager:
+                MDScreen:
+                    MDBoxLayout:
+                        orientation: "vertical"
+                        spacing: 10
 
-                MDCard:
-                    padding: 4
-                    size_hint: .9, .5
-                    pos_hint: {"center_x": .5, "center_y": .9}
-                    MDRelativeLayout:
-                        MDIconButton:
-                            icon: "dots-vertical"
-                            pos_hint: {"top": 1, "right": 1}
+                        MDTopAppBar:
+                            md_bg_color: "#422315"
+                            left_action_items: [["menu", lambda x: nav_drawer.set_state("open")]]
 
-                        MDLabel:
-                            id: label
-                            text: "THIS IS CARD"
-                            adaptive_size: True
-                            color: "grey"
-                            pos: "12dp", "12dp"
-                            bold: True
-                MDCard:
-                    padding: 4
-                    size_hint: .9, .5
-                    pos_hint: {"center_x": .5, "center_y": .9}
-                    MDRelativeLayout:
-                        MDIconButton:
-                            icon: "dots-vertical"
-                            pos_hint: {"top": 1, "right": 1}
+                        MDScrollView:
+                            do_scroll_x: False
+                            do_scroll_y: True
 
-                        MDLabel:
-                            id: label
-                            text: "THIS IS CARD"
-                            adaptive_size: True
-                            color: "grey"
-                            pos: "12dp", "12dp"
-                            bold: True
-                MDCard:
-                    padding: 4
-                    size_hint: .9, .5
-                    pos_hint: {"center_x": .5, "center_y": .9}
-                    MDRelativeLayout:
-                        MDIconButton:
-                            icon: "dots-vertical"
-                            pos_hint: {"top": 1, "right": 1}
+                            MDBoxLayout:
+                                orientation: "vertical"
+                                size_hint_y: None
+                                height: dp(1000)
+                                spacing: 10
 
-                        MDLabel:
-                            id: label
-                            text: "THIS IS CARD"
-                            adaptive_size: True
-                            color: "grey"
-                            pos: "12dp", "12dp"
-                            bold: True
+                                MDCard:
+                                    padding: 4
+                                    size_hint: .9, .5
+                                    pos_hint: {"center_x": .5, "center_y": .9}
+                                    MDRelativeLayout:
+                                        MDIconButton:
+                                            icon: "dots-vertical"
+                                            pos_hint: {"top": 1, "right": 1}
+
+                                        MDLabel:
+                                            id: label
+                                            text: "THIS IS CARD"
+                                            adaptive_size: True
+                                            color: "grey"
+                                            pos: "12dp", "12dp"
+                                            bold: True
+                                MDCard:
+                                    padding: 4
+                                    size_hint: .9, .5
+                                    pos_hint: {"center_x": .5, "center_y": .9}
+                                    MDRelativeLayout:
+                                        MDIconButton:
+                                            icon: "dots-vertical"
+                                            pos_hint: {"top": 1, "right": 1}
+
+                                        MDLabel:
+                                            id: label
+                                            text: "THIS IS CARD"
+                                            adaptive_size: True
+                                            color: "grey"
+                                            pos: "12dp", "12dp"
+                                            bold: True
+                                MDCard:
+                                    padding: 4
+                                    size_hint: .9, .5
+                                    pos_hint: {"center_x": .5, "center_y": .9}
+                                    MDRelativeLayout:
+                                        MDIconButton:
+                                            icon: "dots-vertical"
+                                            pos_hint: {"top": 1, "right": 1}
+
+                                        MDLabel:
+                                            id: label
+                                            text: "THIS IS CARD"
+                                            adaptive_size: True
+                                            color: "grey"
+                                            pos: "12dp", "12dp"
+                                            bold: True
+
+            MDNavigationDrawer:
+                id: nav_drawer
+                radius: 0, 16, 16, 0
+
+                MDNavigationDrawerMenu:
+
+                    MDNavigationDrawerHeader:
+                        title: "Header title"
+                        title_color: "#4a4939"
+                        text: "Header text"
+                        spacing: "4dp"
+                        padding: "12dp", 0, 0, "56dp"
