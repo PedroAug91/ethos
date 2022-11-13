@@ -158,14 +158,7 @@ MDScreenManager:
                 on_release:
 
                     if app.verify_data(email_login.text, password_login.text) == 'tudocerto': root.current = "timeline";root.transition.direction = "left"
-<<<<<<< HEAD
                     else: lbl.text = "Login incorreto, tente novamente"
-=======
-                    elif app.verify_data(email_login.text, password_login.text) == 'tudoerrado': lbl.text = "Login incorreto, tente novamente"
-                    elif app.verify_data(email_login.text, password_login.text) == 'emailerrado': lbl.text = "Email errado, tente novamente"
-                    elif app.verify_data(email_login.text, password_login.text) == 'senhaerrada': lbl.text = "Senha errada, tente novamente"
-
->>>>>>> 10f29daf85e5cf839f916ee6f43d10a818c39967
             FillButtonBase:
                 text: "Cadastrar-se"
                 size_hint: .55, .07
