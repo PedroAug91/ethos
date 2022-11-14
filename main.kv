@@ -1,3 +1,15 @@
+MDScreenManager:
+    InitialScreen:
+    LoginScreen:
+    SignUpScreen:
+    ForgetPassWordScreen:
+    AboutScreen:
+    TimeLineScreen:
+
+<FillButtonBase@MDFillRoundFlatButton>:
+    font_style: "Button"
+    md_bg_color: "#422315"
+
 <TextFieldBase@MDTextField>
     size_hint: 1, None
     height: "30dp"
@@ -13,381 +25,375 @@
     icon_left_color_normal: "gray"
     icon_left_color_focus: "black"
 
-<FillButtonBase@MDFillRoundFlatButton>:
-    font_style: "Button"
-    md_bg_color: "#422315"
 
-MDScreenManager:
+<InitialScreen@MDScreen>:
+    name: "initial"
+    md_bg_color: "#bd9f83"
 
+    MDHeroFrom:
+        id: hero_from
+        tag: "hero"
+        size_hint: None, None
+        size: "200dp", "200dp"
+        pos_hint: {"center_x": .5, "center_y": .66}
+        FitImage:
+            source: "images/logo.png"
+            size_hint: None, None
+            size: hero_from.size
+
+    MDFloatLayout:
+        FillButtonBase:
+            text: "COMEÇAR AGORA"
+            pos_hint: {"center_x": .5, "center_y": .4}
+            size_hint: .6, .09
+            on_release:
+                app.root.current_heroes = ["hero"]
+                app.root.current = "login"
+                app.root.transition.direction = "left"
+
+        FillButtonBase:
+            text:"SOBRE"
+            pos_hint: {"center_x": .5, "center_y": .28}
+            size_hint: .6, .09
+            on_release:
+                app.root.current_heroes = ["hero"]
+                app.root.current = "about"
+                app.root.transition.direction = "left"
+
+<LoginScreen@MDScreen>:
+    name: "login"
+    hero_to: hero_to_login
+    md_bg_color: "#bd9f83"
+
+    MDHeroTo:
+        id: hero_to_login
+        tag: "hero"
+        size_hint: None, None
+        size: "220dp", "220dp"
+        pos_hint: {"center_x": .5, "center_y": .85}
+
+    MDFloatLayout:
+        size_hint: 1, 1
+        MDFloatLayout:
+            pos_hint: {"center_x": .5, "center_y": .55}
+            size_hint: .78, 1
+
+            TextFieldBase:
+                id: email_login
+                pos_hint: {"center_x": .5, "center_y": .56}
+                icon_left: "email"
+                hint_text: "Email:"
+
+            TextFieldBase:
+                id: password_login
+                pos_hint: {"center_x": .5, "center_y": .44}
+                hint_text: "Senha:"
+                icon_left: "key-variant"
+                password: True
+
+            MDIconButton:
+                icon: "eye-off"
+                pos_hint: {"center_x": 0.95, "center_y": .44}
+                pos: password_login.width - self.width + dp(8), 0
+                theme_text_color: "Hint"
+
+                on_release:
+                    self.icon = "eye" if self.icon == "eye-off" else "eye-off"
+                    password_login.password = False if password_login.password == True else True
+
+            MDTextButton:
+                id: redefine_password
+                text: "Redefinir senha"
+                custom_color: "white"
+                pos_hint: {"center_x": .8, "center_y": .33}
+                on_release:
+                    app.root.current = "recpaswrd"
+                    app.root.transition.direction = "left"
+
+        MDLabel: 
+            id: lbl
+            text: " "
+            bold: True
+            pos_hint: {"center_x": .71, "center_y": .69}
+
+        FillButtonBase:
+            text: "Entrar"
+            size_hint: .55, .07
+            pos_hint: {"center_x": .5, "center_y": .25}
+            on_release:
+                if app.verify_data(email_login.text, password_login.text) == 'tudocerto': app.root.current = "timeline";app.root.transition.direction = "left"
+                else: lbl.text = "Login incorreto, tente novamente"
+
+        FillButtonBase:
+            text: "Cadastrar-se"
+            size_hint: .55, .07
+            pos_hint: {"center_x": .5, "center_y": .15}
+            on_release:
+                app.root.current_heroes = []
+                app.root.current = "signup"
+                app.root.transition.direction = "left"
+
+    MDIconButton:
+        icon: "chevron-triple-left"
+        icon_size: "43sp"
+        theme_icon_color: "Custom"
+        icon_color: "#422315"
+        pos_hint: {"center_x": .099, "center_y": .06} 
+        on_release:
+            app.root.current_heroes = ["hero"]
+            app.root.current = "initial"
+            app.root.transition.direction = "right"
+
+<SignUpScreen@MDScreen>:
+    name: "signup"
+    md_bg_color: "#bd9f83"
     
-    MDScreen:
-        name: "initial"
-        md_bg_color: "#bd9f83"
-
-        MDHeroFrom:
-            id: hero_from
-            tag: "hero"
-            size_hint: None, None
-            size: "200dp", "200dp"
-            pos_hint: {"center_x": .5, "center_y": .66}
-            FitImage:
-                source: "images/logo.png"
-                size_hint: None, None
-                size: hero_from.size
+    MDFloatLayout:
+        size_hint: 1, 1
 
         MDFloatLayout:
-            FillButtonBase:
-                text: "COMEÇAR AGORA"
-                pos_hint: {"center_x": .5, "center_y": .4}
-                size_hint: .6, .09
+            pos_hint: {"center_x": .5, "center_y": .55}
+            size_hint: .78, 1
+
+            TextFieldBase:
+                id: name_signup
+                pos_hint: {"center_x": .5, "center_y": .56}
+                icon_left: "account"
+                hint_text: "Nome:"
+
+            TextFieldBase:
+                id: email_signup
+                pos_hint: {"center_x": .5, "center_y": .44}
+                hint_text: "Email:"
+                icon_left: "email"
+
+            TextFieldBase:
+                id: password_signup
+                pos_hint: {"center_x": .5, "center_y": .32}
+                hint_text: "Senha:"
+                icon_left: "key-variant"
+                password: True
+
+            MDIconButton:
+                icon: "eye-off"
+                pos_hint: {"center_x": 0.95, "center_y": .32}
+                pos: password_signup.width - self.width + dp(8), 0
+                theme_text_color: "Hint"
+
                 on_release:
-                    root.current_heroes = ["hero"]
-                    root.current = "login"
-                    root.transition.direction = "left"
+                    self.icon = "eye" if self.icon == "eye-off" else "eye-off"
+                    password_signup.password = False if password_signup.password == True else True
+                    
+        MDLabel: 
+            id: lbc
+            text: " "
+            bold: True
+            pos_hint: {"center_x": .71, "center_y": .69}
 
-            FillButtonBase:
-                text:"SOBRE"
-                pos_hint: {"center_x": .5, "center_y": .28}
-                size_hint: .6, .09
-                on_release:
-                    root.current_heroes = ["hero"]
-                    root.current = "about"
-                    root.transition.direction = "left"
-
-    MDScreen:
-        name: "about"
-        hero_to: hero_to_about
-        md_bg_color: "#bd9f83"
-
-        MDHeroTo:
-            id: hero_to_about
-            tag: "hero"
-            size_hint: None, None
-            size: "220dp", "220dp"
-            pos_hint: {"center_x": .5, "center_y": .85}
-
-        MDFloatLayout:
-            size_hint: 1, 1
-
-            MDFloatLayout:
-                pos_hint: {"center_x": .5, "center_y": .5}
-                size_hint: .85, .65 
-                padding: .75, .75, .75, .75
-
-                MDLabel:
-                    text: "Sobre nós:"
-                    pos_hint: {"center_x": .52, "center_y": .75}
-                    font_style: "Button"
-                    theme_text_color: "Custom"
-                    text_color: 66/255, 35/255, 21/255, 1
-
-                MDLabel:
-                    text: "SOBRE SOBRE SOBRE SOBRE\nSOBRE SOBRE SOBRE SOBRE\nSOBRE SOBRE SOBRE SOBRE\nSOBRE SOBRE SOBRE SOBRE\n"
-                    pos_hint: {"center_x": .52, "center_y": .60}
-                    theme_text_color: "Custom"
-                    text_color: 66/255, 35/255, 21/255, 1
-
-        MDIconButton:
-            icon: "chevron-triple-left"
-            icon_size: "43sp"
-            theme_icon_color: "Custom"
-            icon_color: "#422315"
-            pos_hint: {"center_x": .099, "center_y": .06} 
+        FillButtonBase:
+            text: "Cadastrar"
+            size_hint: .6, .09
+            pos_hint: {"center_x": .5, "center_y": .2}
             on_release:
-                root.current_heroes = ["hero"]
-                root.current = "initial"
-                root.transition.direction = "right"
-
-    MDScreen:
-        name: "login"
-        hero_to: hero_to_login
-        md_bg_color: "#bd9f83"
-
-        MDHeroTo:
-            id: hero_to_login
-            tag: "hero"
-            size_hint: None, None
-            size: "220dp", "220dp"
-            pos_hint: {"center_x": .5, "center_y": .85}
-
-        MDFloatLayout:
-            size_hint: 1, 1
-            MDFloatLayout:
-                pos_hint: {"center_x": .5, "center_y": .55}
-                size_hint: .78, 1
+                if app.send_data(name_signup.text, email_signup.text, password_signup.text) == "emailcorreto": root.current = "login"
+                elif app.send_data(name_signup.text, email_signup.text, password_signup.text) == "emailinva": lbc.text = "Cadastre o email corretamente"
                 
-                TextFieldBase:
-                    id: email_login
-                    pos_hint: {"center_x": .5, "center_y": .56}
-                    icon_left: "email"
-                    hint_text: "Email:"
+    MDIconButton:
+        icon: "chevron-triple-left"
+        icon_size: "43sp"
+        theme_icon_color: "Custom"
+        icon_color: "#422315"
+        pos_hint: {"center_x": .099, "center_y": .06} 
+        on_release:
+            app.root.current = "login"
+            app.root.transition.direction = "right"
 
-                TextFieldBase:
-                    id: password_login
-                    pos_hint: {"center_x": .5, "center_y": .44}
-                    hint_text: "Senha:"
-                    icon_left: "key-variant"
-                    password: True
+<ForgetPassWordScreen@MDScreen>:
+    name: "recpaswrd"
+    md_bg_color: "#bd9f83"
+    
+    MDFloatLayout:
+        size_hint: 1, 1
 
-                MDIconButton:
-                    icon: "eye-off"
-                    pos_hint: {"center_x": 0.95, "center_y": .44}
-                    pos: password_login.width - self.width + dp(8), 0
-                    theme_text_color: "Hint"
-
-                    on_release:
-                        self.icon = "eye" if self.icon == "eye-off" else "eye-off"
-                        password_login.password = False if password_login.password == True else True
-
-                MDTextButton:
-                    id: redefine_password
-                    text: "Redefinir senha"
-                    custom_color: "white"
-                    pos_hint: {"center_x": .8, "center_y": .33}
-                    on_release:
-                        root.current = "recpaswrd"
-                        root.transition.direction = "left"
-
-            MDLabel: 
-                id: lbl
-                text: " "
-                bold: True
-                pos_hint: {"center_x": .71, "center_y": .69}
-
-            FillButtonBase:
-                text: "Entrar"
-                size_hint: .55, .07
-                pos_hint: {"center_x": .5, "center_y": .25}
-                on_release:
-                    if app.verify_data(email_login.text, password_login.text) == 'tudocerto': root.current = "timeline";root.transition.direction = "left"
-                    else: lbl.text = "Login incorreto, tente novamente"
-
-            FillButtonBase:
-                text: "Cadastrar-se"
-                size_hint: .55, .07
-                pos_hint: {"center_x": .5, "center_y": .15}
-                on_release:
-                    root.current_heroes = []
-                    root.current = "signup"
-                    root.transition.direction = "left"
-
-        MDIconButton:
-            icon: "chevron-triple-left"
-            icon_size: "43sp"
-            theme_icon_color: "Custom"
-            icon_color: "#422315"
-            pos_hint: {"center_x": .099, "center_y": .06} 
-            on_release:
-                root.current_heroes = ["hero"]
-                root.current = "initial"
-                root.transition.direction = "right"
-
-    MDScreen:
-        name: "signup"
-        md_bg_color: "#bd9f83"
-        
         MDFloatLayout:
-            size_hint: 1, 1
+            pos_hint: {"center_x": .5, "center_y": .55}
+            size_hint: .78, 1
 
-            MDFloatLayout:
-                pos_hint: {"center_x": .5, "center_y": .55}
-                size_hint: .78, 1
 
-                TextFieldBase:
-                    id: name_signup
-                    pos_hint: {"center_x": .5, "center_y": .56}
-                    icon_left: "account"
-                    hint_text: "Nome:"
+            TextFieldBase:
+                id: email_rec
+                pos_hint: {"center_x": .5, "center_y": .56}
+                icon_left: "email"
+                hint_text: "Email:"
 
-                TextFieldBase:
-                    id: email_signup
-                    pos_hint: {"center_x": .5, "center_y": .44}
-                    hint_text: "Email:"
-                    icon_left: "email"
+            TextFieldBase:
+                id: password_rec
+                pos_hint: {"center_x": .5, "center_y": .44}
+                hint_text: "Senha:"
+                icon_left: "key-variant"
+                password: True
 
-                TextFieldBase:
-                    id: password_signup
-                    pos_hint: {"center_x": .5, "center_y": .32}
-                    hint_text: "Senha:"
-                    icon_left: "key-variant"
-                    password: True
+            MDIconButton:
+                icon: "eye-off"
+                pos_hint: {"center_x": 0.95, "center_y": .44}
+                pos: password_rec.width - self.width + dp(8), 0
+                theme_text_color: "Hint"
 
-                MDIconButton:
-                    icon: "eye-off"
-                    pos_hint: {"center_x": 0.95, "center_y": .32}
-                    pos: password_signup.width - self.width + dp(8), 0
-                    theme_text_color: "Hint"
-
-                    on_release:
-                        self.icon = "eye" if self.icon == "eye-off" else "eye-off"
-                        password_signup.password = False if password_signup.password == True else True
-                        
-            MDLabel: 
-                id: lbc
-                text: " "
-                bold: True
-                pos_hint: {"center_x": .71, "center_y": .69}
-
-            FillButtonBase:
-                text: "Cadastrar"
-                size_hint: .6, .09
-                pos_hint: {"center_x": .5, "center_y": .2}
                 on_release:
-                    if app.send_data(name_signup.text, email_signup.text, password_signup.text) == "emailcorreto": root.current = "login"
-                    elif app.send_data(name_signup.text, email_signup.text, password_signup.text) == "emailinva": lbc.text = "Cadastre o email corretamente"
+                    self.icon = "eye" if self.icon == "eye-off" else "eye-off"
+                    password_rec.password = False if password_rec.password == True else True
                     
-        MDIconButton:
-            icon: "chevron-triple-left"
-            icon_size: "43sp"
-            theme_icon_color: "Custom"
-            icon_color: "#422315"
-            pos_hint: {"center_x": .099, "center_y": .06} 
-            on_release:
-                root.current = "login"
-                root.transition.direction = "right"
+        MDLabel: 
+            id: lbrec
+            text: " "
+            bold: True
+            pos_hint: {"center_x": .61, "center_y": .69}
 
-    MDScreen:
-        name: "recpaswrd"
-        md_bg_color: "#bd9f83"
-        
+        FillButtonBase:
+            text: "Recuperar"
+            size_hint: .6, .09
+            pos_hint: {"center_x": .5, "center_y": .2}
+            on_release:
+                if app.rst_pswrd(email_rec.text, password_rec.text) == 'troca': lbrec.text = "Senha recuperada com sucesso"
+                else: lbrec.text = 'Email não cadastrado ou senha já cadastrada'
+                
+    MDIconButton:
+        icon: "chevron-triple-left"
+        icon_size: "43sp"
+        theme_icon_color: "Custom"
+        icon_color: "#422315"
+        pos_hint: {"center_x": .099, "center_y": .06} 
+        on_release:
+            app.root.current = "login"
+            app.root.transition.direction = "right"
+
+<AboutScreen@MDScreen>:
+    name: "about"
+    hero_to: hero_to_about
+    md_bg_color: "#bd9f83"
+
+    MDHeroTo:
+        id: hero_to_about
+        tag: "hero"
+        size_hint: None, None
+        size: "220dp", "220dp"
+        pos_hint: {"center_x": .5, "center_y": .85}
+
+    MDFloatLayout:
+        size_hint: 1, 1
+
         MDFloatLayout:
-            size_hint: 1, 1
+            pos_hint: {"center_x": .5, "center_y": .5}
+            size_hint: .85, .65 
+            padding: .75, .75, .75, .75
 
-            MDFloatLayout:
-                pos_hint: {"center_x": .5, "center_y": .55}
-                size_hint: .78, 1
+            MDLabel:
+                text: "Sobre nós:"
+                pos_hint: {"center_x": .52, "center_y": .75}
+                font_style: "Button"
+                theme_text_color: "Custom"
+                text_color: 66/255, 35/255, 21/255, 1
 
+            MDLabel:
+                text: "SOBRE SOBRE SOBRE SOBRE\nSOBRE SOBRE SOBRE SOBRE\nSOBRE SOBRE SOBRE SOBRE\nSOBRE SOBRE SOBRE SOBRE\n"
+                pos_hint: {"center_x": .52, "center_y": .60}
+                theme_text_color: "Custom"
+                text_color: 66/255, 35/255, 21/255, 1
 
-                TextFieldBase:
-                    id: email_rec
-                    pos_hint: {"center_x": .5, "center_y": .56}
-                    icon_left: "email"
-                    hint_text: "Email:"
+    MDIconButton:
+        icon: "chevron-triple-left"
+        icon_size: "43sp"
+        theme_icon_color: "Custom"
+        icon_color: "#422315"
+        pos_hint: {"center_x": .099, "center_y": .06} 
+        on_release:
+            app.root.current_heroes = ["hero"]
+            app.root.current = "initial"
+            app.root.transition.direction = "right"
 
-                TextFieldBase:
-                    id: password_rec
-                    pos_hint: {"center_x": .5, "center_y": .44}
-                    hint_text: "Senha:"
-                    icon_left: "key-variant"
-                    password: True
+<TimeLineScreen@MDScreen>:
+    name: "timeline"
+    md_bg_color: "#bd9f83"
 
-                MDIconButton:
-                    icon: "eye-off"
-                    pos_hint: {"center_x": 0.95, "center_y": .44}
-                    pos: password_rec.width - self.width + dp(8), 0
-                    theme_text_color: "Hint"
+    MDNavigationLayout:
+        MDScreenManager:
+            MDScreen:
+                MDBoxLayout:
+                    orientation: "vertical"
+                    spacing: 10
 
-                    on_release:
-                        self.icon = "eye" if self.icon == "eye-off" else "eye-off"
-                        password_rec.password = False if password_rec.password == True else True
-                        
-            MDLabel: 
-                id: lbrec
-                text: " "
-                bold: True
-                pos_hint: {"center_x": .61, "center_y": .69}
+                    MDTopAppBar:
+                        md_bg_color: "#422315"
+                        left_action_items: [["menu", lambda x: nav_drawer.set_state("open")]]
 
-            FillButtonBase:
-                text: "Recuperar"
-                size_hint: .6, .09
-                pos_hint: {"center_x": .5, "center_y": .2}
-                on_release:
-                    if app.rst_pswrd(email_rec.text, password_rec.text) == 'troca': lbrec.text = "Senha recuperada com sucesso"
-                    else: lbrec.text = 'Email não cadastrado ou senha já cadastrada'
-                    
-        MDIconButton:
-            icon: "chevron-triple-left"
-            icon_size: "43sp"
-            theme_icon_color: "Custom"
-            icon_color: "#422315"
-            pos_hint: {"center_x": .099, "center_y": .06} 
-            on_release:
-                root.current = "login"
-                root.transition.direction = "right"
+                    MDScrollView:
+                        do_scroll_x: False
+                        do_scroll_y: True
 
-    MDScreen:
-        name: "timeline"
-        md_bg_color: "#bd9f83"
+                        MDBoxLayout:
+                            orientation: "vertical"
+                            size_hint_y: None
+                            height: dp(1000)
+                            spacing: 10
 
-        MDNavigationLayout:
-            MDScreenManager:
-                MDScreen:
-                    MDBoxLayout:
-                        orientation: "vertical"
-                        spacing: 10
+                            MDCard:
+                                padding: 4
+                                size_hint: .9, .5
+                                pos_hint: {"center_x": .5, "center_y": .9}
+                                MDRelativeLayout:
+                                    MDIconButton:
+                                        icon: "dots-vertical"
+                                        pos_hint: {"top": 1, "right": 1}
 
-                        MDTopAppBar:
-                            md_bg_color: "#422315"
-                            left_action_items: [["menu", lambda x: nav_drawer.set_state("open")]]
+                                    MDLabel:
+                                        id: label
+                                        text: "THIS IS CARD"
+                                        adaptive_size: True
+                                        color: "grey"
+                                        pos: "12dp", "12dp"
+                                        bold: True
+                            MDCard:
+                                padding: 4
+                                size_hint: .9, .5
+                                pos_hint: {"center_x": .5, "center_y": .9}
+                                MDRelativeLayout:
+                                    MDIconButton:
+                                        icon: "dots-vertical"
+                                        pos_hint: {"top": 1, "right": 1}
 
-                        MDScrollView:
-                            do_scroll_x: False
-                            do_scroll_y: True
+                                    MDLabel:
+                                        id: label
+                                        text: "THIS IS CARD"
+                                        adaptive_size: True
+                                        color: "grey"
+                                        pos: "12dp", "12dp"
+                                        bold: True
+                            MDCard:
+                                padding: 4
+                                size_hint: .9, .5
+                                pos_hint: {"center_x": .5, "center_y": .9}
+                                MDRelativeLayout:
+                                    MDIconButton:
+                                        icon: "dots-vertical"
+                                        pos_hint: {"top": 1, "right": 1}
 
-                            MDBoxLayout:
-                                orientation: "vertical"
-                                size_hint_y: None
-                                height: dp(1000)
-                                spacing: 10
+                                    MDLabel:
+                                        id: label
+                                        text: "THIS IS CARD"
+                                        adaptive_size: True
+                                        color: "grey"
+                                        pos: "12dp", "12dp"
+                                        bold: True
 
-                                MDCard:
-                                    padding: 4
-                                    size_hint: .9, .5
-                                    pos_hint: {"center_x": .5, "center_y": .9}
-                                    MDRelativeLayout:
-                                        MDIconButton:
-                                            icon: "dots-vertical"
-                                            pos_hint: {"top": 1, "right": 1}
+        MDNavigationDrawer:
+            id: nav_drawer
+            radius: 0, 16, 16, 0
 
-                                        MDLabel:
-                                            id: label
-                                            text: "THIS IS CARD"
-                                            adaptive_size: True
-                                            color: "grey"
-                                            pos: "12dp", "12dp"
-                                            bold: True
-                                MDCard:
-                                    padding: 4
-                                    size_hint: .9, .5
-                                    pos_hint: {"center_x": .5, "center_y": .9}
-                                    MDRelativeLayout:
-                                        MDIconButton:
-                                            icon: "dots-vertical"
-                                            pos_hint: {"top": 1, "right": 1}
+            MDNavigationDrawerMenu:
 
-                                        MDLabel:
-                                            id: label
-                                            text: "THIS IS CARD"
-                                            adaptive_size: True
-                                            color: "grey"
-                                            pos: "12dp", "12dp"
-                                            bold: True
-                                MDCard:
-                                    padding: 4
-                                    size_hint: .9, .5
-                                    pos_hint: {"center_x": .5, "center_y": .9}
-                                    MDRelativeLayout:
-                                        MDIconButton:
-                                            icon: "dots-vertical"
-                                            pos_hint: {"top": 1, "right": 1}
-
-                                        MDLabel:
-                                            id: label
-                                            text: "THIS IS CARD"
-                                            adaptive_size: True
-                                            color: "grey"
-                                            pos: "12dp", "12dp"
-                                            bold: True
-
-            MDNavigationDrawer:
-                id: nav_drawer
-                radius: 0, 16, 16, 0
-
-                MDNavigationDrawerMenu:
-
-                    MDNavigationDrawerHeader:
-                        title: "Header title"
-                        title_color: "#4a4939"
-                        text: "Header text"
-                        spacing: "4dp"
-                        padding: "12dp", 0, 0, "56dp"
+                MDNavigationDrawerHeader:
+                    title: "Header title"
+                    title_color: "#4a4939"
+                    text: "Header text"
+                    spacing: "4dp"
+                    padding: "12dp", 0, 0, "56dp"

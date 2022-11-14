@@ -1,7 +1,37 @@
 from kivymd.app import MDApp
 from kivy.lang import Builder
+from kivymd.uix.screenmanager import MDScreenManager
+from kivymd.uix.screen import MDScreen
 from firebase import firebase
 from kivy.core.window import Window
+
+sm = MDScreenManager()
+
+class InitialScreen(MDScreen):
+    pass
+
+class SignUpScreen(MDScreen):
+    pass
+
+class LoginScreen(MDScreen):
+    pass
+
+class TimeLineScreen(MDScreen):
+    pass
+ 
+class AboutScreen(MDScreen):
+    pass
+
+class ForgetPassWordScreen(MDScreen):
+    pass
+
+
+sm.add_widget(InitialScreen(name="initial"))
+sm.add_widget(SignUpScreen(name="signup"))
+sm.add_widget(LoginScreen(name="login"))
+sm.add_widget(TimeLineScreen(name="timeline"))
+sm.add_widget(AboutScreen(name="about"))
+sm.add_widget(ForgetPassWordScreen(name="recpaswrd"))
 
 
 class Apps(MDApp):
