@@ -9,32 +9,10 @@ sm = MDScreenManager()
 
 class InitialScreen(MDScreen):
     pass
-
 class SignUpScreen(MDScreen):
     pass
 
 class LoginScreen(MDScreen):
-    pass
-
-class TimeLineScreen(MDScreen):
-    pass
- 
-class AboutScreen(MDScreen):
-    pass
-
-class ForgetPassWordScreen(MDScreen):
-    pass
-
-
-sm.add_widget(InitialScreen(name="initial"))
-sm.add_widget(SignUpScreen(name="signup"))
-sm.add_widget(LoginScreen(name="login"))
-sm.add_widget(TimeLineScreen(name="timeline"))
-sm.add_widget(AboutScreen(name="about"))
-sm.add_widget(ForgetPassWordScreen(name="recpaswrd"))
-
-
-class Apps(MDApp):
     def send_data(self, name, email, password):
         from firebase import firebase
         firebase = firebase.FirebaseApplication('https://testando-ae5b2-default-rtdb.firebaseio.com/', None)
@@ -59,7 +37,9 @@ class Apps(MDApp):
         for i in result.keys():
             if result[i]['Email'] == email:
                 if result[i]['Password'] == password:
-                    return 'tudocerto'
+                    self.ids.lbl.text = 'foi'
+            else:
+                self.ids.lbl.text = 'nao foi'
 
     def rst_pswrd(self, email, password):
         from firebase import firebase
@@ -73,7 +53,25 @@ class Apps(MDApp):
                 firebase.patch(f'https://testando-ae5b2-default-rtdb.firebaseio.com/Users/{i}', dados)
                 return 'troca'
 
+class TimeLineScreen(MDScreen):
+    pass
+ 
+class AboutScreen(MDScreen):
+    pass
 
+class ForgetPassWordScreen(MDScreen):
+    pass
+
+
+sm.add_widget(InitialScreen(name="initial"))
+sm.add_widget(SignUpScreen(name="signup"))
+sm.add_widget(LoginScreen(name="login"))
+sm.add_widget(TimeLineScreen(name="timeline"))
+sm.add_widget(AboutScreen(name="about"))
+sm.add_widget(ForgetPassWordScreen(name="recpaswrd"))
+
+
+class Apps(MDApp):
     def build(self):
         Window.size = (400, 600)
 
