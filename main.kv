@@ -122,6 +122,7 @@ MDScreenManager:
             pos_hint: {"center_x": .5, "center_y": .25}
             on_release:
                 root.verify_data(email_login.text, password_login.text)
+                app.root.current = "timeline"
 
         FillButtonBase:
             text: "Cadastrar-se"
@@ -312,12 +313,12 @@ MDScreenManager:
 
 <TimeLineScreen@MDScreen>:
     name: "timeline"
-    md_bg_color: "#bd9f83"
 
     MDNavigationLayout:
         MDScreenManager:
             MDScreen:
                 MDBoxLayout:
+                    md_bg_color: "#bd9f83"
                     orientation: "vertical"
                     spacing: 10
 
@@ -332,57 +333,15 @@ MDScreenManager:
                         MDBoxLayout:
                             orientation: "vertical"
                             size_hint_y: None
-                            height: dp(1000)
+                            height: self.minimum_height
                             spacing: 10
 
-                            MDCard:
-                                padding: 4
-                                size_hint: .9, .5
-                                pos_hint: {"center_x": .5, "center_y": .9}
-                                MDRelativeLayout:
-                                    MDIconButton:
-                                        icon: "dots-vertical"
-                                        pos_hint: {"top": 1, "right": 1}
-
-                                    MDLabel:
-                                        id: label
-                                        text: "THIS IS CARD"
-                                        adaptive_size: True
-                                        color: "grey"
-                                        pos: "12dp", "12dp"
-                                        bold: True
-                            MDCard:
-                                padding: 4
-                                size_hint: .9, .5
-                                pos_hint: {"center_x": .5, "center_y": .9}
-                                MDRelativeLayout:
-                                    MDIconButton:
-                                        icon: "dots-vertical"
-                                        pos_hint: {"top": 1, "right": 1}
-
-                                    MDLabel:
-                                        id: label
-                                        text: "THIS IS CARD"
-                                        adaptive_size: True
-                                        color: "grey"
-                                        pos: "12dp", "12dp"
-                                        bold: True
-                            MDCard:
-                                padding: 4
-                                size_hint: .9, .5
-                                pos_hint: {"center_x": .5, "center_y": .9}
-                                MDRelativeLayout:
-                                    MDIconButton:
-                                        icon: "dots-vertical"
-                                        pos_hint: {"top": 1, "right": 1}
-
-                                    MDLabel:
-                                        id: label
-                                        text: "THIS IS CARD"
-                                        adaptive_size: True
-                                        color: "grey"
-                                        pos: "12dp", "12dp"
-                                        bold: True
+                MDFloatingActionButton:
+                    type: "standard"
+                    md_bg_color: "#422315"
+                    icon: "plus"
+                    icon_color: 1,1,1,1
+                    pos_hint:{"center_x": .9, "center_y": .07}
 
         MDNavigationDrawer:
             id: nav_drawer

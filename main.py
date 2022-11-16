@@ -74,6 +74,8 @@ sm.add_widget(ForgetPassWordScreen(name="recpaswrd"))
 class Apps(MDApp):
     def build(self):
         Window.size = (400, 600)
+        self.theme_cls.material_style = "M3"
+
 
         return Builder.load_file("main.kv")
  
