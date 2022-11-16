@@ -2,10 +2,14 @@ from kivymd.app import MDApp
 from kivy.lang import Builder
 from kivymd.uix.screenmanager import MDScreenManager
 from kivymd.uix.screen import MDScreen
+from kivymd.uix.card import MDCard
+from kivymd.uix.label import MDLabel
 from firebase import firebase
 from kivy.core.window import Window
 
 sm = MDScreenManager()
+class TLCard(MDCard):
+    pass
 
 class InitialScreen(MDScreen):
     pass
@@ -54,7 +58,17 @@ class LoginScreen(MDScreen):
                 return 'troca'
 
 class TimeLineScreen(MDScreen):
-    pass
+    def new_widget(self,texto):
+        self.ids.box_timeline.add_widget(
+                TLCard(
+                    MDLabel(
+                        text=texto),
+                    size_hint=(.9,None),
+                    height=200,
+                    md_bg_color=(1,1,1,1),
+                    pos_hint={"center_x": .5}
+                    )
+                )
  
 class AboutScreen(MDScreen):
     pass
@@ -75,8 +89,6 @@ class Apps(MDApp):
     def build(self):
         Window.size = (400, 600)
         self.theme_cls.material_style = "M3"
-
-
         return Builder.load_file("main.kv")
  
 if __name__ == '__main__':

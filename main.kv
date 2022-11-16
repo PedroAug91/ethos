@@ -331,6 +331,7 @@ MDScreenManager:
                         do_scroll_y: True
 
                         MDBoxLayout:
+                            id: box_timeline
                             orientation: "vertical"
                             size_hint_y: None
                             height: self.minimum_height
@@ -342,6 +343,8 @@ MDScreenManager:
                     icon: "plus"
                     icon_color: 1,1,1,1
                     pos_hint:{"center_x": .9, "center_y": .07}
+                    on_release:
+                        root.new_widget("Esse texto vem da linha 347 do main.kv")
 
         MDNavigationDrawer:
             id: nav_drawer
