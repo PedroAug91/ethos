@@ -356,6 +356,15 @@ MDScreenManager:
                         app.root.current = "newpost"
                         app.root.transition.direction = "left"
                         app.root.current_heroes = []
+                
+                MDFloatingActionButtonÇ
+                    type: "standard"
+                    md_bg_color: "#422315"
+                    icon: "sync"
+                    icon_color: 1,1,1,1
+                    pos_hint: {"center_x": .1, "center_y": .07 }
+                    on_press:
+                        root.attTL()
 
         MDNavigationDrawer:
             id: nav_drawer
