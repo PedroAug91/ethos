@@ -14,9 +14,6 @@ class TLCard(MDCard):
 class InitialScreen(MDScreen):
     pass
 class SignUpScreen(MDScreen):
-    pass
-
-class LoginScreen(MDScreen):
     def send_data(self, name, email, password):
         from firebase import firebase
         firebase = firebase.FirebaseApplication('https://testando-ae5b2-default-rtdb.firebaseio.com/', None)
@@ -32,6 +29,7 @@ class LoginScreen(MDScreen):
         else:
             return 'emailinva'
 
+class LoginScreen(MDScreen):
     def verify_data(self, email, password):
         from firebase import firebase
 
@@ -42,20 +40,10 @@ class LoginScreen(MDScreen):
             if result[i]['Email'] == email:
                 if result[i]['Password'] == password:
                     self.ids.lbl.text = 'foi'
+                    return True
             else:
                 self.ids.lbl.text = 'nao foi'
 
-    def rst_pswrd(self, email, password):
-        from firebase import firebase
-
-        firebase = firebase.FirebaseApplication('https://testando-ae5b2-default-rtdb.firebaseio.com/', None)
-        result = firebase.get('https://testando-ae5b2-default-rtdb.firebaseio.com/Users', '')
-
-        for i in result.keys():
-            dados = {'Password': password}
-            if result[i]['Email'] == email and result[i]['Password'] != password:
-                firebase.patch(f'https://testando-ae5b2-default-rtdb.firebaseio.com/Users/{i}', dados)
-                return 'troca'
 
 class TimeLineScreen(MDScreen):
     def new_widget(self,texto):
@@ -74,7 +62,18 @@ class AboutScreen(MDScreen):
     pass
 
 class ForgetPassWordScreen(MDScreen):
-    pass
+        def rst_pswrd(self, email, password):
+            from firebase import firebase
+
+            firebase = firebase.FirebaseApplication('https://testando-ae5b2-default-rtdb.firebaseio.com/', None)
+            result = firebase.get('https://testando-ae5b2-default-rtdb.firebaseio.com/Users', '')
+
+            for i in result.keys():
+                dados = {'Password': password}
+                if result[i]['Email'] == email and result[i]['Password'] != password:
+                    firebase.patch(f'https://testando-ae5b2-default-rtdb.firebaseio.com/Users/{i}', dados)
+                    return 'troca'
+
 
 
 sm.add_widget(InitialScreen(name="initial"))

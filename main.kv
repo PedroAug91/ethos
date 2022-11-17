@@ -121,9 +121,8 @@ MDScreenManager:
             size_hint: .55, .07
             pos_hint: {"center_x": .5, "center_y": .25}
             on_release:
-                root.verify_data(email_login.text, password_login.text)
-                app.root.current = "timeline"
-
+                if root.verify_data(email_login.text, password_login.text) == True: app.root.current = "timeline"
+                
         FillButtonBase:
             text: "Cadastrar-se"
             size_hint: .55, .07
