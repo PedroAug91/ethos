@@ -14,7 +14,7 @@ class User:
     def __init__(self, name, email, password):
         self.name = name
         self.email = email
-        self.password
+        self.password = password
 
 class TLCard(MDCard):
     pass
@@ -26,21 +26,30 @@ class WelcomeScreen(MDScreen):
         return time_line
 
     def load_posts(self):
-        titulo = "pimbada"
-        texto = "pimba"
-        MDApp.get_running_app().root.ids.timeline_id.ids.box_timeline.add_widget(
-                TLCard(
-                    MDLabel(
-                        text=titulo),
-                    MDLabel(
-                        text=texto),
-                    size_hint=(.9,None),
-                    height=200,
-                    md_bg_color=(1,1,1,1),
-                    pos_hint={"center_x": .5}
-                    )
-        )
-        Clock.schedule_once(self.troca_tela, 5)
+        from firebase import firebase
+        firebase = firebase.FirebaseApplication('https://testando-ae5b2-default-rtdb.firebaseio.com/', None)
+        result = firebase.get('https://testando-ae5b2-default-rtdb.firebaseio.com/Users', '')
+        for i in result.keys():
+            result2 = firebase.get(f'https://testando-ae5b2-default-rtdb.firebaseio.com/Users/{i}', '')
+            for c in result2.keys(): 
+                if c == 'Posts':
+                    result3 = firebase.get(f'https://testando-ae5b2-default-rtdb.firebaseio.com/Users/{i}/{c}', '')
+                    for j in result3.keys():
+                        texto = result3[j]['Texto']
+                        titulo = result3[j]['Título']
+                        MDApp.get_running_app().root.ids.timeline_id.ids.box_timeline.add_widget(
+                                TLCard(
+                                    MDLabel(
+                                        text=titulo),
+                                    MDLabel(
+                                        text=texto),
+                                    size_hint=(.9,None),
+                                    height=200,
+                                    md_bg_color=(1,1,1,1),
+                                    pos_hint={"center_x": .5}
+                                    )
+                        )
+        Clock.schedule_once(self.troca_tela, 1)
 
 class InitialScreen(MDScreen):
     pass
