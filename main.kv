@@ -253,8 +253,7 @@ MDScreenManager:
             size_hint: .6, .09
             pos_hint: {"center_x": .5, "center_y": .2}
             on_release:
-                if app.rst_pswrd(email_rec.text, password_rec.text) == 'troca': lbrec.text = "Senha recuperada com sucesso"
-                else: lbrec.text = 'Email não cadastrado ou senha já cadastrada'
+                root.rst_pswrd(email_rec.text, password_rec.text)
                 
     MDIconButton:
         icon: "chevron-triple-left"

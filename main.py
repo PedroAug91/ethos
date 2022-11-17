@@ -72,7 +72,7 @@ class ForgetPassWordScreen(MDScreen):
                 dados = {'Password': password}
                 if result[i]['Email'] == email and result[i]['Password'] != password:
                     firebase.patch(f'https://testando-ae5b2-default-rtdb.firebaseio.com/Users/{i}', dados)
-                    return 'troca'
+                    self.ids.lbrec.text = 'Senha recuperada com sucesso'
 
 
 
