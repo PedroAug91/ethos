@@ -9,9 +9,14 @@ from kivy.core.window import Window
 
 sm = MDScreenManager()
 
+class User:
+    def __init__(self, name, email, password):
+        self.name = name
+        self.email = email
+        self.password
+
 class TLCard(MDCard):
     pass
-
 
 class InitialScreen(MDScreen):
     pass
@@ -42,10 +47,10 @@ class LoginScreen(MDScreen):
         for i in result.keys():
             if result[i]['Email'] == email:
                 if result[i]['Password'] == password:
-                    self.ids.lbl.text = 'foi'
                     return True
             else:
                 self.ids.lbl.text = 'nao foi'
+            
 
 
 class TimeLineScreen(MDScreen):
@@ -67,7 +72,13 @@ class ForgetPassWordScreen(MDScreen):
                     self.ids.lbrec.text = 'Senha recuperada com sucesso'
 
 class NewPostScreen(MDScreen):
-    def new_post(self,titulo,texto):
+    def new_post(self, titulo, texto, email, password):
+        from firebase import firebase
+        
+        user = None
+
+        firebase = firebase.FirebaseApplication('https://testando-ae5b2-default-rtdb.firebaseio.com/', None)
+        result = firebase.get('https://testando-ae5b2-default-rtdb.firebaseio.com/Users', '')
         MDApp.get_running_app().root.ids.timeline_id.ids.box_timeline.add_widget(
                 TLCard(
                     MDLabel(
@@ -79,7 +90,18 @@ class NewPostScreen(MDScreen):
                     md_bg_color=(1,1,1,1),
                     pos_hint={"center_x": .5}
                     )
-                )
+        )
+        for i in result.keys():
+            if result[i]['Email'] == email:
+                if result[i]['Password'] == password:
+                    user = i
+                    break
+        data = {
+            'Título': titulo,
+            'Texto': texto
+        }
+
+        firebase.post(f'https://testando-ae5b2-default-rtdb.firebaseio.com/Users/{user}/Posts', data)
 
 sm.add_widget(NewPostScreen(name="newpost"))
 sm.add_widget(InitialScreen(name="initial"))

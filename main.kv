@@ -371,7 +371,6 @@ MDScreenManager:
 <NewPostScreen@MDScreen>:
     name: "newpost"
     md_bg_color: "#bd9f83"
-
     MDFloatLayout:
         size_hint: 1, 1
         MDFloatLayout:
@@ -395,7 +394,7 @@ MDScreenManager:
                 icon_color: 1,1,1,1
                 pos_hint:{"center_x": .9, "center_y": .07}
                 on_release:
-                    root.new_post(title_id.text, text_id.text)
+                    root.new_post(title_id.text, text_id.text, app.root.ids.login_id.ids.email_login.text, app.root.ids.login_id.ids.password_login.text)
                     app.root.current = "timeline"
                     app.root.transition.direction = "right"
 
