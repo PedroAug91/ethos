@@ -13,6 +13,8 @@ MDScreenManager:
         id: timeline_id
     NewPostScreen:
         id: newpost_id
+    WelcomeScreen:
+        id: welcome_id
 
 <FillButtonBase@MDFillRoundFlatButton>:
     font_style: "Button"
@@ -129,7 +131,7 @@ MDScreenManager:
             size_hint: .55, .07
             pos_hint: {"center_x": .5, "center_y": .25}
             on_release:
-                if root.verify_data(email_login.text, password_login.text) == True: app.root.current = "timeline"
+                if root.verify_data(email_login.text, password_login.text) == True: app.root.current = "welcome"
                 app.root.current_heroes = []
                 
         FillButtonBase:
@@ -203,7 +205,7 @@ MDScreenManager:
             size_hint: .6, .09
             pos_hint: {"center_x": .5, "center_y": .2}
             on_release:
-                if app.send_data(name_signup.text, email_signup.text, password_signup.text) == "emailcorreto": app.root.current = "login"
+                if app.send_data(name_signup.text, email_signup.text, password_signup.text) == "emailcorreto": app.root.current = "welcome"
                 elif app.send_data(name_signup.text, email_signup.text, password_signup.text) == "emailinva": lbc.text = "Cadastre o email corretamente"
                 
     MDIconButton:
@@ -398,4 +400,19 @@ MDScreenManager:
                     app.root.current = "timeline"
                     app.root.transition.direction = "right"
 
+<WelcomeScreen@MDScreen>:
+    name: "welcome"
+    md_bg_color: "#bd9f83"
+
+    MDFloatLayout:
+        MDLabel:
+            halign: "center"
+            text: "oi"
+
+        MDIconButton:
+            icon: "chevron"
+            on_press:
+                root.load_posts()
+            
+        
 
