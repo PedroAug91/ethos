@@ -1,10 +1,18 @@
 MDScreenManager:
     InitialScreen:
+        id: initial_id
     LoginScreen:
+        id: login_id
     SignUpScreen:
+        id: signup_id
     ForgetPassWordScreen:
+        id: password_id
     AboutScreen:
+        id: about_id
     TimeLineScreen:
+        id: timeline_id
+    NewPostScreen:
+        id: newpost_id
 
 <FillButtonBase@MDFillRoundFlatButton>:
     font_style: "Button"
@@ -122,6 +130,7 @@ MDScreenManager:
             pos_hint: {"center_x": .5, "center_y": .25}
             on_release:
                 if root.verify_data(email_login.text, password_login.text) == True: app.root.current = "timeline"
+                app.root.current_heroes = []
                 
         FillButtonBase:
             text: "Cadastrar-se"
@@ -194,7 +203,7 @@ MDScreenManager:
             size_hint: .6, .09
             pos_hint: {"center_x": .5, "center_y": .2}
             on_release:
-                if app.send_data(name_signup.text, email_signup.text, password_signup.text) == "emailcorreto": root.current = "login"
+                if app.send_data(name_signup.text, email_signup.text, password_signup.text) == "emailcorreto": app.root.current = "login"
                 elif app.send_data(name_signup.text, email_signup.text, password_signup.text) == "emailinva": lbc.text = "Cadastre o email corretamente"
                 
     MDIconButton:
@@ -342,7 +351,9 @@ MDScreenManager:
                     icon_color: 1,1,1,1
                     pos_hint:{"center_x": .9, "center_y": .07}
                     on_release:
-                        root.new_widget("Esse texto vem da linha 347 do main.kv")
+                        app.root.current = "newpost"
+                        app.root.transition.direction = "left"
+                        app.root.current_heroes = []
 
         MDNavigationDrawer:
             id: nav_drawer
@@ -356,3 +367,36 @@ MDScreenManager:
                     text: "Header text"
                     spacing: "4dp"
                     padding: "12dp", 0, 0, "56dp"
+
+<NewPostScreen@MDScreen>:
+    name: "newpost"
+    md_bg_color: "#bd9f83"
+
+    MDFloatLayout:
+        size_hint: 1, 1
+        MDFloatLayout:
+            pos_hint: {"center_x": .5, "center_y": .55}
+            size_hint: .78, 1
+
+            TextFieldBase:
+                id: title_id
+                pos_hint: {"center_x": .5, "center_y": .56}
+                hint_text: "Titulo:"
+
+            TextFieldBase:
+                id: text_id
+                pos_hint: {"center_x": .5, "center_y": .44}
+                hint_text: "Texto:"
+            
+            MDFloatingActionButton:
+                type: "standard"
+                md_bg_color: "#422315"
+                icon: "chevron-right"
+                icon_color: 1,1,1,1
+                pos_hint:{"center_x": .9, "center_y": .07}
+                on_release:
+                    root.new_post(title_id.text, text_id.text)
+                    app.root.current = "timeline"
+                    app.root.transition.direction = "right"
+
+

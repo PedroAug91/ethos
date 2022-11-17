@@ -8,11 +8,14 @@ from firebase import firebase
 from kivy.core.window import Window
 
 sm = MDScreenManager()
+
 class TLCard(MDCard):
     pass
 
+
 class InitialScreen(MDScreen):
     pass
+
 class SignUpScreen(MDScreen):
     def send_data(self, name, email, password):
         from firebase import firebase
@@ -46,18 +49,7 @@ class LoginScreen(MDScreen):
 
 
 class TimeLineScreen(MDScreen):
-    def new_widget(self,texto):
-        self.ids.box_timeline.add_widget(
-                TLCard(
-                    MDLabel(
-                        text=texto),
-                    size_hint=(.9,None),
-                    height=200,
-                    md_bg_color=(1,1,1,1),
-                    pos_hint={"center_x": .5}
-                    )
-                )
- 
+    pass
 class AboutScreen(MDScreen):
     pass
 
@@ -74,8 +66,22 @@ class ForgetPassWordScreen(MDScreen):
                     firebase.patch(f'https://testando-ae5b2-default-rtdb.firebaseio.com/Users/{i}', dados)
                     self.ids.lbrec.text = 'Senha recuperada com sucesso'
 
+class NewPostScreen(MDScreen):
+    def new_post(self,titulo,texto):
+        MDApp.get_running_app().root.ids.timeline_id.ids.box_timeline.add_widget(
+                TLCard(
+                    MDLabel(
+                        text=titulo),
+                    MDLabel(
+                        text=texto),
+                    size_hint=(.9,None),
+                    height=200,
+                    md_bg_color=(1,1,1,1),
+                    pos_hint={"center_x": .5}
+                    )
+                )
 
-
+sm.add_widget(NewPostScreen(name="newpost"))
 sm.add_widget(InitialScreen(name="initial"))
 sm.add_widget(SignUpScreen(name="signup"))
 sm.add_widget(LoginScreen(name="login"))
