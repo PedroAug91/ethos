@@ -9,6 +9,8 @@ from firebase import firebase
 from kivy.core.window import Window
 
 sm = MDScreenManager()
+global posts
+posts = []
 
 class User:
     def __init__(self, name, email, password):
@@ -37,6 +39,7 @@ class WelcomeScreen(MDScreen):
                     for j in result3.keys():
                         texto = result3[j]['Texto']
                         titulo = result3[j]['Título']
+                        posts.append(j)
                         MDApp.get_running_app().root.ids.timeline_id.ids.box_timeline.add_widget(
                                 TLCard(
                                     MDLabel(
@@ -49,7 +52,7 @@ class WelcomeScreen(MDScreen):
                                     pos_hint={"center_x": .5}
                                     )
                         )
-        Clock.schedule_once(self.troca_tela, 1)
+        Clock.schedule_once(self.troca_tela, .5)
 
 class InitialScreen(MDScreen):
     pass
@@ -87,17 +90,19 @@ class LoginScreen(MDScreen):
 
 
 class TimeLineScreen(MDScreen):
-    from firebase import firebase
-    firebase = firebase.FirebaseApplication('https://testando-ae5b2-default-rtdb.firebaseio.com/', None)
     def attTL(self):
-        while True:
-            result = firebase.get('https://testando-ae5b2-default-rtdb.firebaseio.com/Users', '')
-            for i in result.keys():
-                result2 = firebase.get(f'https://testando-ae5b2-default-rtdb.firebaseio.com/Users/{i}', '')
-                for c in result2.keys(): 
-                    if c == 'Posts':
-                        result3 = firebase.get(f'https://testando-ae5b2-default-rtdb.firebaseio.com/Users/{i}/{c}', '')
-                        for j in result3.keys():
+        from firebase import firebase
+        firebase = firebase.FirebaseApplication('https://testando-ae5b2-default-rtdb.firebaseio.com/', None)
+        result = firebase.get('https://testando-ae5b2-default-rtdb.firebaseio.com/Users', '')
+        for i in result.keys():
+            result2 = firebase.get(f'https://testando-ae5b2-default-rtdb.firebaseio.com/Users/{i}', '')
+            for c in result2.keys(): 
+                if c == 'Posts':
+                    result3 = firebase.get(f'https://testando-ae5b2-default-rtdb.firebaseio.com/Users/{i}/{c}', '')
+                    for j in result3.keys():
+                        if j not in posts:
+                            posts.append(j)
+                        if j not in posts:
                             texto = result3[j]['Texto']
                             titulo = result3[j]['Título']
                             MDApp.get_running_app().root.ids.timeline_id.ids.box_timeline.add_widget(
@@ -111,8 +116,8 @@ class TimeLineScreen(MDScreen):
                                         md_bg_color=(1,1,1,1),
                                         pos_hint={"center_x": .5}
                                         )
-                            )             
-                            
+                            )            
+                        
 class AboutScreen(MDScreen):
     pass
 
