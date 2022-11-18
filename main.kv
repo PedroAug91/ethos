@@ -1,10 +1,20 @@
 MDScreenManager:
     InitialScreen:
+        id: initial_id
     LoginScreen:
+        id: login_id
     SignUpScreen:
+        id: signup_id
     ForgetPassWordScreen:
+        id: password_id
     AboutScreen:
+        id: about_id
     TimeLineScreen:
+        id: timeline_id
+    NewPostScreen:
+        id: newpost_id
+    WelcomeScreen:
+        id: welcome_id
 
 <FillButtonBase@MDFillRoundFlatButton>:
     font_style: "Button"
@@ -121,9 +131,9 @@ MDScreenManager:
             size_hint: .55, .07
             pos_hint: {"center_x": .5, "center_y": .25}
             on_release:
-                root.verify_data(email_login.text, password_login.text)
-                app.root.current = "timeline"
-
+                if root.verify_data(email_login.text, password_login.text) == True: app.root.current = "welcome"
+                app.root.current_heroes = []
+                
         FillButtonBase:
             text: "Cadastrar-se"
             size_hint: .55, .07
@@ -195,8 +205,8 @@ MDScreenManager:
             size_hint: .6, .09
             pos_hint: {"center_x": .5, "center_y": .2}
             on_release:
-                if app.send_data(name_signup.text, email_signup.text, password_signup.text) == "emailcorreto": root.current = "login"
-                elif app.send_data(name_signup.text, email_signup.text, password_signup.text) == "emailinva": lbc.text = "Cadastre o email corretamente"
+                if root.send_data(name_signup.text, email_signup.text, password_signup.text) == "emailcorreto": app.root.current = "welcome"
+                elif root.send_data(name_signup.text, email_signup.text, password_signup.text) == "emailinva": lbc.text = "Cadastre o email corretamente"
                 
     MDIconButton:
         icon: "chevron-triple-left"
@@ -254,8 +264,7 @@ MDScreenManager:
             size_hint: .6, .09
             pos_hint: {"center_x": .5, "center_y": .2}
             on_release:
-                if app.rst_pswrd(email_rec.text, password_rec.text) == 'troca': lbrec.text = "Senha recuperada com sucesso"
-                else: lbrec.text = 'Email não cadastrado ou senha já cadastrada'
+                root.rst_pswrd(email_rec.text, password_rec.text)
                 
     MDIconButton:
         icon: "chevron-triple-left"
@@ -344,7 +353,18 @@ MDScreenManager:
                     icon_color: 1,1,1,1
                     pos_hint:{"center_x": .9, "center_y": .07}
                     on_release:
-                        root.new_widget("Esse texto vem da linha 347 do main.kv")
+                        app.root.current = "newpost"
+                        app.root.transition.direction = "left"
+                        app.root.current_heroes = []
+                
+                MDFloatingActionButton:
+                    type: "standard"
+                    md_bg_color: "#422315"
+                    icon: "sync"
+                    icon_color: 1,1,1,1
+                    pos_hint: {"center_x": .1, "center_y": .07 }
+                    on_press:
+                        root.attTL()
 
         MDNavigationDrawer:
             id: nav_drawer
@@ -358,3 +378,47 @@ MDScreenManager:
                     text: "Header text"
                     spacing: "4dp"
                     padding: "12dp", 0, 0, "56dp"
+
+<NewPostScreen@MDScreen>:
+    name: "newpost"
+    md_bg_color: "#bd9f83"
+    MDFloatLayout:
+        size_hint: 1, 1
+        MDFloatLayout:
+            pos_hint: {"center_x": .5, "center_y": .55}
+            size_hint: .78, 1
+
+            TextFieldBase:
+                id: title_id
+                pos_hint: {"center_x": .5, "center_y": .56}
+                hint_text: "Titulo:"
+
+            TextFieldBase:
+                id: text_id
+                pos_hint: {"center_x": .5, "center_y": .44}
+                hint_text: "Texto:"
+            
+            MDFloatingActionButton:
+                type: "standard"
+                md_bg_color: "#422315"
+                icon: "chevron-right"
+                icon_color: 1,1,1,1
+                pos_hint:{"center_x": .9, "center_y": .07}
+                on_release:
+                    root.new_post(title_id.text, text_id.text, app.root.ids.login_id.ids.email_login.text, app.root.ids.login_id.ids.password_login.text)
+                    app.root.current = "timeline"
+                    app.root.transition.direction = "right"
+
+<WelcomeScreen@MDScreen>:
+    name: "welcome"
+    md_bg_color: "#bd9f83"
+
+    MDFloatLayout:
+        MDLabel:
+            halign: "center"
+            text: "oi"
+
+        MDIconButton:
+            icon: "chevron"
+            on_press:
+                root.load_posts()
