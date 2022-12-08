@@ -85,8 +85,7 @@ class LoginScreen(MDScreen):
                 if result[i]['Password'] == password:
                     return True
             else:
-                self.ids.lbl.text = 'nao foi'
-            
+                return False
 
 
 class TimeLineScreen(MDScreen):
