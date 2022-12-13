@@ -386,17 +386,22 @@ MDScreenManager:
         size_hint: 1, 1
         MDFloatLayout:
             pos_hint: {"center_x": .5, "center_y": .55}
-            size_hint: .78, 1
+            size_hint: .9, 1
+            MDLabel: 
+                id: labNP
+                text: " "
+                bold: True
+            TLCard:
+                size_hint: .9, .4
+                pos_hint:{"center_x": .5, "center_y": .5}
+                
+                TextFieldBase:
+                    id: title_id
+                    pos_hint: {"center_x": .3, "center_y": .8}
 
-            TextFieldBase:
-                id: title_id
-                pos_hint: {"center_x": .5, "center_y": .56}
-                hint_text: "Titulo:"
-
-            TextFieldBase:
-                id: text_id
-                pos_hint: {"center_x": .5, "center_y": .44}
-                hint_text: "Texto:"
+                TextFieldBase:
+                    id: text_id
+                    pos_hint: {"center_x": .05, "center_y": .2}
             
             MDFloatingActionButton:
                 type: "standard"
