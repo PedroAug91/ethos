@@ -89,10 +89,10 @@ MDScreenManager:
             size_hint: .78, 1
 
             TextFieldBase:
-                id: email_login
+                id: username_login
                 pos_hint: {"center_x": .5, "center_y": .56}
-                icon_left: "email"
-                hint_text: "Email:"
+                icon_left: "account"
+                hint_text: "Usuário:"
 
             TextFieldBase:
                 id: password_login
@@ -131,7 +131,7 @@ MDScreenManager:
             size_hint: .55, .07
             pos_hint: {"center_x": .5, "center_y": .25}
             on_release:
-                if root.verify_data(email_login.text, password_login.text) == True: app.root.current = "welcome"
+                if root.verify_data(username_login.text, password_login.text) == True: app.root.current = "welcome"
                 app.root.current_heroes = []
                 
         FillButtonBase:
