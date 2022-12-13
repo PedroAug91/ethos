@@ -98,7 +98,7 @@ class TimeLineScreen(MDScreen):
             result2 = firebase.get(f'https://testando-ae5b2-default-rtdb.firebaseio.com/Users/{i}', '')
             for c in result2.keys(): 
                 if c == 'Posts':
-                    result3 = firebase.get(f'https://testando-ae5b2-default-rtdb.firebaseio.com/Users/{i}/{c}', '')
+                    result3 = firebase.get(f'https: //testando-ae5b2-default-rtdb.firebaseio.com/Users/{i}/{c}', '')
                     for j in result3.keys():
                         if j not in posts:
                             posts.append(j)
