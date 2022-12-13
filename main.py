@@ -29,13 +29,13 @@ class WelcomeScreen(MDScreen):
 
     def load_posts(self):
         from firebase import firebase
-        firebase = firebase.FirebaseApplication('https://testando-ae5b2-default-rtdb.firebaseio.com/', None)
-        result = firebase.get('https://testando-ae5b2-default-rtdb.firebaseio.com/Users', '')
+        firebase = firebase.FirebaseApplication('https://temp2-b5411-default-rtdb.firebaseio.com/', None)
+        result = firebase.get('https://temp2-b5411-default-rtdb.firebaseio.com/Users', '')
         for i in result.keys():
-            result2 = firebase.get(f'https://testando-ae5b2-default-rtdb.firebaseio.com/Users/{i}', '')
+            result2 = firebase.get(f'https://temp2-b5411-default-rtdb.firebaseio.com/Users/{i}', '')
             for c in result2.keys(): 
                 if c == 'Posts':
-                    result3 = firebase.get(f'https://testando-ae5b2-default-rtdb.firebaseio.com/Users/{i}/{c}', '')
+                    result3 = firebase.get(f'https://temp2-b5411-default-rtdb.firebaseio.com/Users/{i}/{c}', '')
                     for j in result3.keys():
                         texto = result3[j]['Texto']
                         titulo = result3[j]['Título']
@@ -60,7 +60,7 @@ class InitialScreen(MDScreen):
 class SignUpScreen(MDScreen):
     def send_data(self, name, email, password):
         from firebase import firebase
-        firebase = firebase.FirebaseApplication('https://testando-ae5b2-default-rtdb.firebaseio.com/', None)
+        firebase = firebase.FirebaseApplication('https://temp2-b5411-default-rtdb.firebaseio.com/', None)
 
         if '@' in email and '.com' in email or '.br' in email:
             data = {
@@ -68,7 +68,7 @@ class SignUpScreen(MDScreen):
                 'Email': email,
                 'Password': password
             }
-            firebase.post('https://testando-ae5b2-default-rtdb.firebaseio.com/Users', data)
+            firebase.post('https://temp2-b5411-default-rtdb.firebaseio.com/Users', data)
             return 'emailcorreto'
         else:
             return 'emailinva'
@@ -77,8 +77,8 @@ class LoginScreen(MDScreen):
     def verify_data(self, email, password):
         from firebase import firebase
 
-        firebase = firebase.FirebaseApplication('https://testando-ae5b2-default-rtdb.firebaseio.com/', None)
-        result = firebase.get('https://testando-ae5b2-default-rtdb.firebaseio.com/Users', '')
+        firebase = firebase.FirebaseApplication('https://temp2-b5411-default-rtdb.firebaseio.com/', None)
+        result = firebase.get('https://temp2-b5411-default-rtdb.firebaseio.com/Users', '')
 
         for i in result.keys():
             if result[i]['Email'] == email:
@@ -91,10 +91,10 @@ class LoginScreen(MDScreen):
 class TimeLineScreen(MDScreen):
     def attTL(self):
         from firebase import firebase
-        firebase = firebase.FirebaseApplication('https://testando-ae5b2-default-rtdb.firebaseio.com/', None)
-        result = firebase.get('https://testando-ae5b2-default-rtdb.firebaseio.com/Users', '')
+        firebase = firebase.FirebaseApplication('https://temp2-b5411-default-rtdb.firebaseio.com/', None)
+        result = firebase.get('https://temp2-b5411-default-rtdb.firebaseio.com/Users', '')
         for i in result.keys():
-            result2 = firebase.get(f'https://testando-ae5b2-default-rtdb.firebaseio.com/Users/{i}', '')
+            result2 = firebase.get(f'https://temp2-b5411-default-rtdb.firebaseio.com/Users/{i}', '')
             for c in result2.keys(): 
                 if c == 'Posts':
                     result3 = firebase.get(f'https: //testando-ae5b2-default-rtdb.firebaseio.com/Users/{i}/{c}', '')
@@ -124,13 +124,13 @@ class ForgetPassWordScreen(MDScreen):
         def rst_pswrd(self, email, password):
             from firebase import firebase
 
-            firebase = firebase.FirebaseApplication('https://testando-ae5b2-default-rtdb.firebaseio.com/', None)
-            result = firebase.get('https://testando-ae5b2-default-rtdb.firebaseio.com/Users', '')
+            firebase = firebase.FirebaseApplication('https://temp2-b5411-default-rtdb.firebaseio.com/', None)
+            result = firebase.get('https://temp2-b5411-default-rtdb.firebaseio.com/Users', '')
 
             for i in result.keys():
                 dados = {'Password': password}
                 if result[i]['Email'] == email and result[i]['Password'] != password:
-                    firebase.patch(f'https://testando-ae5b2-default-rtdb.firebaseio.com/Users/{i}', dados)
+                    firebase.patch(f'https://temp2-b5411-default-rtdb.firebaseio.com/Users/{i}', dados)
                     self.ids.lbrec.text = 'Senha recuperada com sucesso'
 
 class NewPostScreen(MDScreen):
@@ -139,8 +139,8 @@ class NewPostScreen(MDScreen):
         
         user = None
 
-        firebase = firebase.FirebaseApplication('https://testando-ae5b2-default-rtdb.firebaseio.com/', None)
-        result = firebase.get('https://testando-ae5b2-default-rtdb.firebaseio.com/Users', '')
+        firebase = firebase.FirebaseApplication('https://temp2-b5411-default-rtdb.firebaseio.com/', None)
+        result = firebase.get('https://temp2-b5411-default-rtdb.firebaseio.com/Users', '')
         MDApp.get_running_app().root.ids.timeline_id.ids.box_timeline.add_widget(
                 TLCard(
                     MDLabel(
@@ -163,7 +163,7 @@ class NewPostScreen(MDScreen):
             'Texto': texto
         }
 
-        firebase.post(f'https://testando-ae5b2-default-rtdb.firebaseio.com/Users/{user}/Posts', data)
+        firebase.post(f'https://temp2-b5411-default-rtdb.firebaseio.com/Users/{user}/Posts', data)
 
 sm.add_widget(WelcomeScreen(name="welcome"))
 sm.add_widget(NewPostScreen(name="newpost"))

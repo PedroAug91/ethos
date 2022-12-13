@@ -388,7 +388,13 @@ MDScreenManager:
         MDFloatLayout:
             pos_hint: {"center_x": .5, "center_y": .55}
             size_hint: .78, 1
-
+            
+            MDLabel: 
+                id: labelName
+                text: " "
+                bold: True
+                pos_hint: {"center_x": .71, "center_y": .69}
+                
             TextFieldBase:
                 id: title_id
                 pos_hint: {"center_x": .5, "center_y": .56}
