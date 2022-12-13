@@ -357,6 +357,7 @@ MDScreenManager:
                         app.root.current = "newpost"
                         app.root.transition.direction = "left"
                         app.root.current_heroes = []
+                        
                 
                 MDFloatingActionButton:
                     type: "standard"
@@ -386,25 +387,9 @@ MDScreenManager:
     MDFloatLayout:
         size_hint: 1, 1
         MDFloatLayout:
+            id: float_newP
             pos_hint: {"center_x": .5, "center_y": .55}
-            size_hint: .78, 1
-            
-            MDLabel: 
-                id: labelName
-                text: " "
-                bold: True
-                pos_hint: {"center_x": .71, "center_y": .69}
-                
-            TextFieldBase:
-                id: title_id
-                pos_hint: {"center_x": .5, "center_y": .56}
-                hint_text: "Titulo:"
-
-            TextFieldBase:
-                id: text_id
-                pos_hint: {"center_x": .5, "center_y": .44}
-                hint_text: "Texto:"
-            
+            size_hint: .78, 1 
             MDFloatingActionButton:
                 type: "standard"
                 md_bg_color: "#422315"

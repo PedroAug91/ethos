@@ -115,7 +115,7 @@ class TimeLineScreen(MDScreen):
                                         md_bg_color=(1,1,1,1),
                                         pos_hint={"center_x": .5}
                                         )
-                            )            
+                            )
                         
 class AboutScreen(MDScreen):
     pass
@@ -164,6 +164,7 @@ class NewPostScreen(MDScreen):
         }
 
         firebase.post(f'https://temp2-b5411-default-rtdb.firebaseio.com/Users/{user}/Posts', data)
+
 
 sm.add_widget(WelcomeScreen(name="welcome"))
 sm.add_widget(NewPostScreen(name="newpost"))
