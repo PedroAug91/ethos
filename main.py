@@ -59,31 +59,33 @@ class InitialScreen(MDScreen):
     pass
 
 class SignUpScreen(MDScreen):
-    def send_data(self, name, email, password):
+    def send_data(self, user, email, password):
         from firebase import firebase
         firebase = firebase.FirebaseApplication('https://temp2-b5411-default-rtdb.firebaseio.com/', None)
+        result = firebase.get('https://temp2-b5411-default-rtdb.firebaseio.com/Users', '')
+        for c in result.keys():
+            if user == result[c]['User']:
+                self.ids.lbc.text = 'Este usuário já existe.'
+            else:
+                data = {
+                    'User': user,
+                    'Email': email,
+                    'Password': password
+                }
+                firebase.post('https://temp2-b5411-default-rtdb.firebaseio.com/Users', data)
+                name_user = user
+                return 'emailcorreto'
 
-        if '@' in email and '.com' in email or '.br' in email:
-            data = {
-                'Name': name,
-                'Email': email,
-                'Password': password
-            }
-            firebase.post('https://temp2-b5411-default-rtdb.firebaseio.com/Users', data)
-            name_user = name
-            return 'emailcorreto'
-        else:
-            return 'emailinva'
 
 class LoginScreen(MDScreen):
-    def verify_data(self, email, password):
+    def verify_data(self, user, password):
         from firebase import firebase
 
         firebase = firebase.FirebaseApplication('https://temp2-b5411-default-rtdb.firebaseio.com/', None)
         result = firebase.get('https://temp2-b5411-default-rtdb.firebaseio.com/Users', '')
 
         for i in result.keys():
-            if result[i]['Email'] == email:
+            if result[i]['User'] == user:
                 if result[i]['Password'] == password:
                     name_user = result[i]['Name']
                     return True

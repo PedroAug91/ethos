@@ -166,10 +166,10 @@ MDScreenManager:
             size_hint: .78, 1
 
             TextFieldBase:
-                id: name_signup
+                id: user_signup
                 pos_hint: {"center_x": .5, "center_y": .56}
                 icon_left: "account"
-                hint_text: "Nome:"
+                hint_text: "Usuário:"
 
             TextFieldBase:
                 id: email_signup
@@ -205,8 +205,7 @@ MDScreenManager:
             size_hint: .6, .09
             pos_hint: {"center_x": .5, "center_y": .2}
             on_release:
-                if root.send_data(name_signup.text, email_signup.text, password_signup.text) == "emailcorreto": app.root.current = "welcome"
-                elif root.send_data(name_signup.text, email_signup.text, password_signup.text) == "emailinva": lbc.text = "Cadastre o email corretamente"
+                if root.send_data(user_signup.text, email_signup.text, password_signup.text) == "emailcorreto": app.root.current = "welcome"
                 
     MDIconButton:
         icon: "chevron-triple-left"
